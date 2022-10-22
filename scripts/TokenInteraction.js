@@ -11,11 +11,22 @@ const PhoneBottoken = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
 async function getTokenValue() {
   const tokenValue = await PhoneBottoken.methods.tokenPrice().call();
-  console.log(tokenValue);
+//   console.log(tokenValue);
   return tokenValue;
 }
 
-getTokenValue()
+async function getOwner() {
+  const owner = await PhoneBottoken.methods.owner().call();
+//   console.log(owner);
+  return owner;
+}
+
+async function main() {
+  console.log(await getTokenValue());
+  console.log(await getOwner());
+}
+
+main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
