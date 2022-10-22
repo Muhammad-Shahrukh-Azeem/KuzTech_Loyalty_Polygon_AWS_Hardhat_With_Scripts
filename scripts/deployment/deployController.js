@@ -9,7 +9,7 @@ const hre = require("hardhat");
 async function main() {
 try {
   const Controller = await hre.ethers.getContractFactory("Controller");
-  const controller = await Controller.deploy();
+  const controller = await Controller.deploy('0x5575bffAfeeC5F217A2F851bf3088110C60c83e2');
   await controller.deployed();
 
   console.log("Deployed to: ", controller.address);
