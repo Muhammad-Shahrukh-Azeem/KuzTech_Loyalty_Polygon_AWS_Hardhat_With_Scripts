@@ -33,13 +33,42 @@ async function getOwner() {
   return owner;
 }
 
+// async function testAddTeam() {
+
+//   const signedTx = await web3.eth.accounts.signTransaction(tx, PRIVATE_KEY);
+
+//   web3.eth.sendSignedTransaction(signedTx.rawTransaction, fun)
+
+// }
+
 async function addTeamAddress() {
-  const addTeamAddress = await PhoneBotToken.methods
-    .addContractAddress("0x8BDB54Ac76ca5d98E8328E0AC13e07a693a97e30")
-    .send({ from: signer.address });
-  return await PhoneBotToken.methods
+  web3.eth.accounts.wallet.add(PRIVATE_KEY);
+  const account = web3.eth.accounts.wallet[0].address;
+  // console.log(web3.eth.accounts.wallet);
+
+  // const addTeamAddress = await PhoneBotToken.methods
+  //   .addTeamAddress("0x8BDB54Ac76ca5d98E8328E0AC13e07a693a97e30")
+  //   .send({ from: account,
+  //           gas: 300000, }, function (err, res) {
+  //     if (err) {
+  //       console.log("An error occured", err);
+  //       return;
+  //     }
+  //     console.log("Hash of the transaction: " + res);
+  //   });
+
+  await PhoneBotToken.methods
     .teamAccessRecord("0x8BDB54Ac76ca5d98E8328E0AC13e07a693a97e30")
-    .call();
+    .call({}, function (err, res) {
+      if (err) {
+        console.log("An error occured", err);
+        return;
+      }
+      console.log("Hash of the transaction: " + res);
+    });
+
+  web3.eth.accounts.wallet.remove(account);
+  // console.log(web3.eth.accounts.wallet);
 }
 
 async function main() {
@@ -52,5 +81,6 @@ main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
-    process.exit(1);
+    p;
+    rocess.exit(1);
   });
