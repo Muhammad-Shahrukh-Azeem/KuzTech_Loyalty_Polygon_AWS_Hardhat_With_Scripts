@@ -23,23 +23,13 @@ const PhoneBotToken = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
 async function getTokenValue() {
   const tokenValue = await PhoneBotToken.methods.tokenPrice().call();
-  //   console.log(tokenValue);
   return tokenValue;
 }
 
 async function getOwner() {
   const owner = await PhoneBotToken.methods.owner().call();
-  //   console.log(owner);
   return owner;
 }
-
-// async function testAddTeam() {
-
-//   const signedTx = await web3.eth.accounts.signTransaction(tx, PRIVATE_KEY);
-
-//   web3.eth.sendSignedTransaction(signedTx.rawTransaction, fun)
-
-// }
 
 async function addTeamAddress() {
   web3.eth.accounts.wallet.add(PRIVATE_KEY);
@@ -89,11 +79,11 @@ async function addContractAddress() {
   // console.log(web3.eth.accounts.wallet);
 }
 
-async function getContractAddresses() {
+async function getContractAddresses(addresss) {
   web3.eth.accounts.wallet.add(PRIVATE_KEY);
   const account = web3.eth.accounts.wallet[0].address;
   const getContractAddresses = await PhoneBotToken.methods
-    .contractAccess('0x8424b1E588e771Af5940EDAa35ADE2075A37E0Ba')
+    .contractAccess(addresss)
     .call({ from: account, gas: 300000, }, function (err, res) {
       if (err) {
         console.log("An error occured", err);
@@ -122,7 +112,7 @@ async function main() {
   console.log(await getOwner());
   console.log(await addTeamAddress());
   // console.log(await addContractAddress()); // Already Addeed: tx hash = 0xed17cd99be665261d67556b173a40c2a78241ee61dd6439f54330b30c4d53a02
-  console.log(await getContractAddresses());
+  console.log(await getContractAddresses('0x8424b1E588e771Af5940EDAa35ADE2075A37E0Ba'));
   // console.log(await mint()); // Already Called for mint : tx hash = 0x97cc0652b63614abf041390126ffad3c0b5edf369716898b7e1108f20a3f0610
 }
 
