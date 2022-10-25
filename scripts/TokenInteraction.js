@@ -19,7 +19,7 @@ const controllerContractAddress = process.env.CONTROLLER_ADDRESS;
 
 const signer = new hre.ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 
-console.log("signer done");
+// console.log("signer done");
 
 const PhoneBotToken = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
@@ -47,7 +47,7 @@ async function mint(callerPrivateKey, recieverAddress, amount) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Sucessfully minted, Hash: " + res);
+      console.log(`Sucessfully minted ${amount}, Hash: ` + res);
     });
 }
 

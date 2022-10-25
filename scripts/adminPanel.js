@@ -40,7 +40,7 @@ async function addTeamAddress(callerPrivateKey, newTeamAddress) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Team member added, Hash: " + res);
+      console.log(`Team member ${newTeamAddress} added, Hash: ` + res);
     });
 }
 
@@ -60,7 +60,7 @@ async function addContractAddress(callerPrivateKey, newContractAddress) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Contract added, Hash: " + res);
+      console.log(`Contract ${newContractAddress} added, Hash: ` + res);
     });
 
   web3.eth.accounts.wallet.remove(account);
@@ -78,13 +78,12 @@ async function removeContractAddress(callerPrivateKey, ContractAddress) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Contract Removed, Hash: " + res);
+      console.log(`Contract ${ContractAddress} Removed, Hash: ` + res);
     });
 
   web3.eth.accounts.wallet.remove(account);
   // console.log(web3.eth.accounts.wallet);
 }
-
 
 // THE FUNCTION RETURNS TRUE IF THEIR ADDRESS IS ALLOWED OR SAVED
 async function getContractAddresses(contracrAddress) {
@@ -102,7 +101,7 @@ async function mint(callerPrivateKey, recieverAddress, amount) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Sucessfully minted, Hash: " + res);
+      console.log(`Sucessfully minted ${amount}, Hash: ` + res);
     });
 }
 
@@ -117,7 +116,7 @@ async function setTokenPrice(callerPrivateKey, newPrice) {
         console.log("An error occured", err);
         return;
       }
-      console.log(`New Price set is set to ${newPrice}, Hash: ` + res);
+      console.log(`New Price is set to ${newPrice}, Hash: ` + res);
     });
 }
 
@@ -125,9 +124,6 @@ async function setTokenPrice(callerPrivateKey, newPrice) {
 async function getContractAddresses(contracrAddress) {
   return await PhoneBotToken.methods.contractAccess(contracrAddress).call();
 }
-
-
-
 
 async function main() {
   console.log(await getTokenValue());
@@ -145,6 +141,5 @@ main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
-    p;
-    rocess.exit(1);
+    process.exit(1);
   });
