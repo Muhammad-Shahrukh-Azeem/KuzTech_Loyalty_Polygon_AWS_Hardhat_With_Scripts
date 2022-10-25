@@ -86,6 +86,14 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
     }
 
     /**
+     * @notice method for setting token buy price
+     * @param _newPrice new price
+     */
+    function setTokenPrice(uint256 _newPrice) external onlyOwner {
+        tokenPrice = _newPrice;
+    }
+
+    /**
      * @notice method for purchasing tokens only ascessable by team members
      * @param to address where tokens needs to be send
      * @param amount the quantity of tokens purchased

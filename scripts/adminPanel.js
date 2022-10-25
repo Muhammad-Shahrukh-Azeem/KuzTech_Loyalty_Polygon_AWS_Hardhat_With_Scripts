@@ -15,11 +15,11 @@ const alchemyProvider = new hre.ethers.providers.AlchemyProvider(
   APIKEY
 );
 
-const controllerContractAddress = "0x8424b1E588e771Af5940EDAa35ADE2075A37E0Ba";
+const controllerContractAddress = process.env.CONTROLLER_ADDRESS;
 
 const signer = new hre.ethers.Wallet(PRIVATE_KEY, alchemyProvider);
 
-console.log("signer done");
+// console.log("signer done");
 
 const PhoneBotToken = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
 
@@ -33,8 +33,6 @@ async function getTokenValue() {
 async function addTeamAddress(callerPrivateKey, newTeamAddress) {
   web3.eth.accounts.wallet.add(callerPrivateKey);
   const account = web3.eth.accounts.wallet[0].address;
-  console.log(web3.eth.accounts.wallet);
-
   const addTeamAddress = await PhoneBotToken.methods
     .addTeamAddress(newTeamAddress)
     .send({ from: account, gas: 300000 }, function (err, res) {
@@ -62,12 +60,31 @@ async function addContractAddress(callerPrivateKey, newContractAddress) {
         console.log("An error occured", err);
         return;
       }
-      console.log("Wallet added, Hash: " + res);
+      console.log("Contract added, Hash: " + res);
     });
 
   web3.eth.accounts.wallet.remove(account);
   // console.log(web3.eth.accounts.wallet);
 }
+
+// THE FUNCTION REMOVES THE CONTRACT ADDRESS WHO WILL BE ALLOWED TO INTERACT WITH THE MAIN CONTRACT (CAN ONLY BE CALLED BY THE OWNER)
+async function removeContractAddress(callerPrivateKey, ContractAddress) {
+  web3.eth.accounts.wallet.add(callerPrivateKey);
+  const account = web3.eth.accounts.wallet[0].address;
+  const removeContractAddresss = await PhoneBotToken.methods
+    .removeContractAddress(ContractAddress)
+    .send({ from: account, gas: 300000 }, function (err, res) {
+      if (err) {
+        console.log("An error occured", err);
+        return;
+      }
+      console.log("Contract Removed, Hash: " + res);
+    });
+
+  web3.eth.accounts.wallet.remove(account);
+  // console.log(web3.eth.accounts.wallet);
+}
+
 
 // THE FUNCTION RETURNS TRUE IF THEIR ADDRESS IS ALLOWED OR SAVED
 async function getContractAddresses(contracrAddress) {
@@ -89,11 +106,39 @@ async function mint(callerPrivateKey, recieverAddress, amount) {
     });
 }
 
+// THE FUNCTION UPDATES PRICE OF TOKENS(CAN ONLY BE CALLED BY THE Owner)
+async function setTokenPrice(callerPrivateKey, newPrice) {
+  web3.eth.accounts.wallet.add(callerPrivateKey);
+  const account = web3.eth.accounts.wallet[0].address;
+  const setTokenPrice = await PhoneBotToken.methods
+    .setTokenPrice(newPrice)
+    .send({ from: account, gas: 300000 }, function (err, res) {
+      if (err) {
+        console.log("An error occured", err);
+        return;
+      }
+      console.log(`New Price set is set to ${newPrice}, Hash: ` + res);
+    });
+}
+
+// THE FUNCTION RETURNS TRUE IF THEIR ADDRESS IS ALLOWED OR SAVED
+async function getContractAddresses(contracrAddress) {
+  return await PhoneBotToken.methods.contractAccess(contracrAddress).call();
+}
+
+
+
+
 async function main() {
   console.log(await getTokenValue());
   console.log(await checkTeamAddress(signer.address));
+  // console.log(await addTeamAddress(PRIVATE_KEY, signer.address));
+  console.log(await getContractAddresses(controllerContractAddress));
+
+  // console.log(await removeContractAddress(PRIVATE_KEY, controllerContractAddress));
   // console.log(await addContractAddress(PRIVATE_KEY, controllerContractAddress)); // Already called will throw error if called again
   console.log(await getContractAddresses(controllerContractAddress));
+  console.log(await setTokenPrice(PRIVATE_KEY, 2000));
 }
 
 main()
