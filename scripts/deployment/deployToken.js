@@ -7,27 +7,29 @@
 const hre = require("hardhat");
 
 async function main() {
-// try {
-//   const PhoneBotToken = await hre.ethers.getContractFactory("PhoneBotToken");
-//   const pb = await PhoneBotToken.deploy();
-//   await pb.deployed();
+try {
+  const PhoneBotToken = await hre.ethers.getContractFactory("PhoneBotToken");
+  const pb = await PhoneBotToken.deploy();
+  await pb.deployed();
 
 
   // Token contract at mumbai testnet
-  // Deployed to:  0x8A1aF60C254fdF2E0B8a45Df4F5104b804F6f3f7
+  // Deployed to:  0x7E59325af020181138457f61fbD4D9F54c28d709
 
 
 
-//   console.log("Deployed to: ", pb.address);
-//   process.exit(0);
-// } catch (error) {
-//   console.log(error);
-// }
+  console.log("Deployed to: ", pb.address);
+  process.exit(0);
+} catch (error) {
+  console.log(error);
+}
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

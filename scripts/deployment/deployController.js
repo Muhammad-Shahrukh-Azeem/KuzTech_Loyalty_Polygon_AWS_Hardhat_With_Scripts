@@ -9,12 +9,12 @@ const hre = require("hardhat");
 async function main() {
 // try {
 //   const Controller = await hre.ethers.getContractFactory("Controller");
-//   const controller = await Controller.deploy('0x8A1aF60C254fdF2E0B8a45Df4F5104b804F6f3f7');
+//   const controller = await Controller.deploy('0x7E59325af020181138457f61fbD4D9F54c28d709');
 //   await controller.deployed();
 
 
 
-//  DEPLOYED TO = 0xD06bdB2501FfB566Dac42e88Bcb7c3803718d7a1;
+//  DEPLOYED TO = 0xd194AEC8d05d5ab0B2301C22EE4Aa8005DF928d5;
 
 
 
@@ -31,7 +31,9 @@ async function main() {
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

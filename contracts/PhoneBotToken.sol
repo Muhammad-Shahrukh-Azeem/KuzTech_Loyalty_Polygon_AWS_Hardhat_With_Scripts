@@ -206,7 +206,7 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
         if (!contractAccess[_contract]) {
             revert AlreadyAdded();
         }
-        contractAccess[_contract] = true;
+        contractAccess[_contract] = false;
     }
 
     /**

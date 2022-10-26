@@ -15,6 +15,8 @@ const alchemyProvider = new hre.ethers.providers.AlchemyProvider(
   APIKEY
 );
 
+web3.eth.handleRevert = true;
+
 const controllerContractAddress = process.env.CONTROLLER_ADDRESS;
 
 const signer = new hre.ethers.Wallet(PRIVATE_KEY, alchemyProvider);
@@ -84,6 +86,5 @@ main()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
-    p;
-    rocess.exit(1);
+    process.exit(1);
   });

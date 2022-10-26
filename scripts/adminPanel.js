@@ -15,6 +15,8 @@ const alchemyProvider = new hre.ethers.providers.AlchemyProvider(
   APIKEY
 );
 
+web3.eth.handleRevert = true;
+
 const controllerContractAddress = process.env.CONTROLLER_ADDRESS;
 
 const signer = new hre.ethers.Wallet(PRIVATE_KEY, alchemyProvider);
@@ -126,15 +128,16 @@ async function getContractAddresses(contracrAddress) {
 }
 
 async function main() {
-  console.log(await getTokenValue());
+  // console.log(await getTokenValue());
   console.log(await checkTeamAddress(signer.address));
   // console.log(await addTeamAddress(PRIVATE_KEY, signer.address));
+
   console.log(await getContractAddresses(controllerContractAddress));
 
   // console.log(await removeContractAddress(PRIVATE_KEY, controllerContractAddress));
   // console.log(await addContractAddress(PRIVATE_KEY, controllerContractAddress)); // Already called will throw error if called again
   console.log(await getContractAddresses(controllerContractAddress));
-  console.log(await setTokenPrice(PRIVATE_KEY, 2000));
+  // console.log(await setTokenPrice(PRIVATE_KEY, 2000));
 }
 
 main()
