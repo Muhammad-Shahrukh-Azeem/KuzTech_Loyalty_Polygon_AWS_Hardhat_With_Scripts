@@ -67,7 +67,7 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
         _unpause();
     }
 
-    function burn(uint256 amount) public virtual override onlyAllowedContracts {
+    function burn(uint256 amount) public virtual override {
         _burn(_msgSender(), amount);
     }
 

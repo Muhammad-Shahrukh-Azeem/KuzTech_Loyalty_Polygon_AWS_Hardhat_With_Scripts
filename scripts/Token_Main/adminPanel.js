@@ -1,29 +1,14 @@
-const { providers } = require("ethers");
-const hre = require("hardhat");
-const Token = require("../artifacts/contracts/PhoneBotToken.sol/PhoneBotToken.json");
-const abi = Token.abi;
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
-const PRIVATE_KEY = process.env.PK;
-const alchemyURL = process.env.URL;
-const APIKEY = process.env.APIKEY;
-
-const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
-const web3 = createAlchemyWeb3(alchemyURL);
-
-const alchemyProvider = new hre.ethers.providers.AlchemyProvider(
-  "maticmum",
-  APIKEY
-);
-
-web3.eth.handleRevert = true;
-
-const controllerContractAddress = process.env.CONTROLLER_ADDRESS;
-
-const signer = new hre.ethers.Wallet(PRIVATE_KEY, alchemyProvider);
-
-// console.log("signer done");
-
-const PhoneBotToken = new web3.eth.Contract(abi, CONTRACT_ADDRESS);
+const {
+  abi,
+  Token,
+  web3,
+  alchemyProvider,
+  controllerContractAddress,
+  signer,
+  PhoneBotToken,
+  PRIVATE_KEY,
+  CONTRACT_ADDRESS,
+} = require("../init");
 
 // THIS FUNCTION RETURNS THE BUYING PRICE OF TOKEN IN WEI
 async function getTokenValue() {
@@ -128,15 +113,17 @@ async function getContractAddresses(contracrAddress) {
 }
 
 async function main() {
-  // console.log(await getTokenValue());
+  console.log(await getTokenValue());
   console.log(await checkTeamAddress(signer.address));
-  // console.log(await addTeamAddress(PRIVATE_KEY, signer.address));
+  // console.log(await addTeamAddress(PRIVATE_KEY, signer.address));;
 
-  console.log(await getContractAddresses(controllerContractAddress));
+  // console.log(await getContractAddresses(CONTRACT_ADDRESS));
 
   // console.log(await removeContractAddress(PRIVATE_KEY, controllerContractAddress));
-  // console.log(await addContractAddress(PRIVATE_KEY, controllerContractAddress)); // Already called will throw error if called again
+  // console.log(await addContractAddress(PRIVATE_KEY, CONTRACT_ADDRESS));
+  // console.log(await addContractAddress(PRIVATE_KEY, controllerContractAddress));
   console.log(await getContractAddresses(controllerContractAddress));
+  console.log(await getContractAddresses(CONTRACT_ADDRESS));
   // console.log(await setTokenPrice(PRIVATE_KEY, 2000));
 }
 

@@ -171,7 +171,7 @@ contract Controller is Fee, Loyalty, Pausable {
         return pb.allowance(_owner, _spender);
     }
 
-    function burn(uint256 amount) public {
-        pb.burn(amount);
-    }
+    // function burn(uint256 amount) public {
+    //     pb.burn(amount);
+    // }
 }
