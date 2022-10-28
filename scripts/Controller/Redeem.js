@@ -50,6 +50,7 @@ async function approve(callerPrivateKey, spenderAddress, amount) {
           return;
         }
         console.log(`Balance of ran sucessfull, Balance: ` + res);
+        return res;
       });
   }
 
