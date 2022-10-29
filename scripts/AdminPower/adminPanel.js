@@ -112,6 +112,43 @@ async function getContractAddresses(contracrAddress) {
   return await PhoneBotToken.methods.contractAccess(contracrAddress).call();
 }
 
+async function isBuyEnabled() {
+  const enable = await PhoneBotToken.methods
+    .allowPurchaseToken()
+    .call();
+    console.log("Buy Feature is currenty enabled? : ",enable);
+    return enable;
+}
+
+async function enablePurchases(callerPrivateKey) {
+  web3.eth.accounts.wallet.add(callerPrivateKey);
+  const account = web3.eth.accounts.wallet[0].address;
+  const enable = await PhoneBotToken.methods
+    .enablePurchaseToken()
+    .send({ from: account, gas: 300000,}, function (err, res) {
+      if (err) {
+        console.log("An error occured", err);
+        return;
+      }
+      console.log(`Succesfully enabled, Hash: ` + res);
+    });
+}
+
+
+async function disablePurchases(callerPrivateKey) {
+  web3.eth.accounts.wallet.add(callerPrivateKey);
+  const account = web3.eth.accounts.wallet[0].address;
+  const disable = await PhoneBotToken.methods
+    .disablePurchaseToken()
+    .send({ from: account, gas: 300000,}, function (err, res) {
+      if (err) {
+        console.log("An error occured", err);
+        return;
+      }
+      console.log(`Succesfully disabled, Hash: ` + res);
+    });
+}
+
 async function main() {
   console.log(await getTokenValue());
   console.log(await checkTeamAddress(signer.address));
@@ -124,6 +161,14 @@ async function main() {
   // console.log(await addContractAddress(PRIVATE_KEY, controllerContractAddress));
   console.log(await getContractAddresses(controllerContractAddress));
   console.log(await getContractAddresses(CONTRACT_ADDRESS));
+
+  // await isBuyEnabled();
+  // await enablePurchases(PRIVATE_KEY);
+  // await isBuyEnabled();
+
+  // await disablePurchases(PRIVATE_KEY);
+  // await isBuyEnabled();
+
   // console.log(await setTokenPrice(PRIVATE_KEY, 2000));
 }
 
