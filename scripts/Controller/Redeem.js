@@ -42,7 +42,7 @@ async function approve(callerPrivateKey, spenderAddress, amount) {
   }
 
   async function balanceOf(address) {
-    const balance = await PhoneBotToken.methods
+    const balance = await controller.methods
       .balanceOf(address)
       .call({}, function (err, res) {
         if (err) {
@@ -57,7 +57,7 @@ async function approve(callerPrivateKey, spenderAddress, amount) {
   async function redeem(callerPrivateKey, address, amount){
     web3.eth.accounts.wallet.add(callerPrivateKey);
     const account = web3.eth.accounts.wallet[0].address;
-    const balanceBefore = await PhoneBotToken.methods.balanceOf(address).call();
+    const balanceBefore = await controller.methods.balanceOf(address).call();
     const burn = await PhoneBotToken.methods
       .burn(amount)
       .send({ from: account, gas: 300000 }, function (err, res) {
@@ -73,10 +73,10 @@ async function approve(callerPrivateKey, spenderAddress, amount) {
   
   
   async function main() {
-    // await balanceOf(signer.address);
+    await balanceOf(signer.address);
     // await burn(PRIVATE_KEY, 100);
     // await balanceOf(signer.address);
-    await redeem(PRIVATE_KEY, signer.address, 100);
+    // await redeem(PRIVATE_KEY, signer.address, 100);
   }
   
   main()

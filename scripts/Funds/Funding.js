@@ -37,9 +37,9 @@ async function fundWalletForRedemption(callerPrivateKey, reciever) {
   web3.eth.accounts.wallet.clear();
 }
 
-async function fundAllWallets(callerPrivateKey, reciever) {
-  for (let index = 0; index < reciever.length; index++) {
-    await fundWalletForRedemption(callerPrivateKey, reciever[index]);
+async function fundAllWallets(callerPrivateKey, recievers) {
+  for (let index = 0; index < recievers.length; index++) {
+    await fundWalletForRedemption(callerPrivateKey, recievers[index]);
   }
 }
 
