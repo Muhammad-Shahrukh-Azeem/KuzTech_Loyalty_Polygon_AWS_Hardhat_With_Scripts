@@ -5,12 +5,13 @@
 // will compile your contracts, add the Hardhat Runtime Environment's members to the
 // global scope, and execute the script.
 const hre = require("hardhat");
+const fs = require("fs");
 
 async function main() {
 // try {
-//   const PhoneBotToken = await hre.ethers.getContractFactory("PhoneBotToken");
-//   const pb = await PhoneBotToken.deploy();
-//   await pb.deployed();
+  // const PhoneBotToken = await hre.ethers.getContractFactory("PhoneBotToken");
+  // const pb = await PhoneBotToken.deploy();
+  // await pb.deployed();
 
 
 //   // Token contract at mumbai testnet
@@ -23,7 +24,15 @@ async function main() {
 // } catch (error) {
 //   console.log(error);
 // }
+// const data = {
+//   address: pb.address,
+//   abi: JSON.parse(pb.interface.format('json'))
+// }
+
+// This writes the ABI and Address to the marketplace.json
+// fs.writeFileSync('./PhoneBotToken.json', JSON.stringify(data))
 }
+
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
