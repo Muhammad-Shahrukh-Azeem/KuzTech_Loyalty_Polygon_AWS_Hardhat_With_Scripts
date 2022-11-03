@@ -62,8 +62,65 @@ export const addTeamAddress = async (callerPrivateKey, newTeamAddress) => {
     console.log(addTeamAddresss);
   } catch (e) {
     console.log(e);
-    document.getElementById("addTeamAddress").innerHTML = e;
+    document.getElementById("addTeamAddress").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
   }
 };
+
+
+export const addContractAddress = async (callerPrivateKey, newContractAddress) => {
+  try {
+    const callerPrivateKey = document.querySelector("#PkContractAddContractAddress").value;
+    const newContractAddress = document.querySelector("#AddContractAddress").value;
+    web3.eth.accounts.wallet.add(callerPrivateKey);
+    const account = web3.eth.accounts.wallet[0].address;
+    const addContractAddresss = await PhoneBotToken.methods
+      .addContractAddress(newContractAddress)
+      .send({ from: account, gas: 200000 });
+    console.log(addContractAddresss);
+    document.getElementById("addContractAddressFunc").innerHTML = "Contract Added Sucessfully tx: " + newContractAddress;
+
+  } catch (e) {
+    console.log(e);
+    document.getElementById("addContractAddress").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+}
+
+
+export const removeContractAddress = async (callerPrivateKey, ContractAddress) => {
+  try {
+    const callerPrivateKey = document.querySelector("#PkContractRemoveContractAddress").value;
+    const ContractAddress = document.querySelector("#ContractAddressRemoveContractAddress").value;
+    web3.eth.accounts.wallet.add(callerPrivateKey);
+    const account = web3.eth.accounts.wallet[0].address;
+    const removeContractAddresss = await PhoneBotToken.methods
+      .removeContractAddress(ContractAddress)
+      .send({ from: account, gas: 200000 });
+    console.log(removeContractAddresss);
+    document.getElementById("removeContractAddressFunc").innerHTML = "Contract removed Sucessfully tx: " + ContractAddress;
+  } catch (e) {
+    console.log(e);
+    document.getElementById("removeContractAddress").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+}
+
+
+
+export const setTokenPrice = async (callerPrivateKey, newPrice) => {
+  try {
+    const callerPrivateKey = document.querySelector("#PkContractSetTokenPrice").value;
+    const newPrice = document.querySelector("#setNewTokenPrice").value;
+    web3.eth.accounts.wallet.add(callerPrivateKey);
+    const account = web3.eth.accounts.wallet[0].address;
+    const setTokenPrice = await PhoneBotToken.methods
+      .setTokenPrice(newPrice)
+      .send({ from: account, gas: 300000 });
+      console.log(setTokenPrice);
+    document.getElementById("showSetNewTokenPrice").innerHTML = "New Price set sucessfully: " + newPrice;
+  } catch (e) {
+    console.log(e);
+    document.getElementById("setNewTokenPriceFunc").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+}
+
 
 // PK = 5d40d64c12b77c03461a09f91ef78613ca7f2b08695685428ba5fdb0b3e84207
