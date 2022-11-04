@@ -77,7 +77,7 @@ export const addContractAddress = async (callerPrivateKey, newContractAddress) =
       .addContractAddress(newContractAddress)
       .send({ from: account, gas: 200000 });
     console.log(addContractAddresss);
-    document.getElementById("addContractAddressFunc").innerHTML = "Contract Added Sucessfully tx: " + newContractAddress;
+    document.getElementById("addContractAddressFunc").innerHTML = "Contract Added Sucessfully, tx: " + newContractAddress;
 
   } catch (e) {
     console.log(e);
@@ -96,7 +96,7 @@ export const removeContractAddress = async (callerPrivateKey, ContractAddress) =
       .removeContractAddress(ContractAddress)
       .send({ from: account, gas: 200000 });
     console.log(removeContractAddresss);
-    document.getElementById("removeContractAddressFunc").innerHTML = "Contract removed Sucessfully tx: " + ContractAddress;
+    document.getElementById("removeContractAddressFunc").innerHTML = "Contract removed Sucessfully, tx: " + ContractAddress;
   } catch (e) {
     console.log(e);
     document.getElementById("removeContractAddress").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
@@ -120,6 +120,35 @@ export const setTokenPrice = async (callerPrivateKey, newPrice) => {
     console.log(e);
     document.getElementById("setNewTokenPriceFunc").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
   }
+}
+
+export const isBuyEnabled = async () => {
+  try {
+    const isenabled = await phoneBotToken.allowPurchaseToken();
+      console.log(isenabled);
+    document.getElementById("isBuyEnabled").innerHTML = "Enabled is: " + isenabled;
+  } catch (e) {
+    console.log(e);
+    document.getElementById("isBuyEnabledFunc").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+}
+
+  export const enablePurchases = async (callerPrivateKey) => {
+    try {
+      const callerPrivateKey = document.querySelector("#PkContractEnablePurchases").value;
+      web3.eth.accounts.wallet.add(callerPrivateKey);
+      const account = web3.eth.accounts.wallet[0].address;
+      const enablePurchases = await PhoneBotToken.methods
+      .enablePurchaseToken()
+        .send({ from: account, gas: 300000 });
+        console.log(enablePurchases);
+      document.getElementById("enablePurchases").innerHTML = "Purchases enabled sucessfully, tx: " + enablePurchases.transactionHash;
+    } catch (e) {
+      console.log(e);
+      document.getElementById("enablePurchasesFunc").innerHTML = "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+
+    
 }
 
 
