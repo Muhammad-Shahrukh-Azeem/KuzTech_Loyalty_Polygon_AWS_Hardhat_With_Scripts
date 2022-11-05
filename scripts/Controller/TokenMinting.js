@@ -24,6 +24,8 @@ async function batchMinting(callerPrivateKey, walletAddresses, tokenValues) {
     });
 }
 
+
+
 async function main() {
   await batchMinting(PRIVATE_KEY, [signer.address, signer.address], [100, 200]);
 }

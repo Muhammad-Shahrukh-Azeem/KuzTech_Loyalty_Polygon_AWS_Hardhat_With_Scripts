@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { getPrice, addTeamAddress, addContractAddress, removeContractAddress ,
-setTokenPrice, isBuyEnabled, enablePurchases} from "./init";
+setTokenPrice, isBuyEnabled, enablePurchases, batchMinting, redeem} from "./init";
 // import React, {useState} from 'react'
 
 // const xx = require('./init');
@@ -69,6 +69,33 @@ function App() {
           <div id="enablePurchases"> </div>
           <div id="enablePurchasesFunc"> </div>
           </div>
+
+
+          <div>
+          <label for="PkTeambatchMinting">Team Private Key: </label>
+          <input type="text" id="PkTeambatchMinting" name="first" />
+          <label for="AddressWalletsBatchMinting">Batch Wallet Addresses: </label>
+          <input type="text" id="AddressWalletsBatchMinting" name="first" />
+          <label for="TokenValuesBatchMinting">Token Values: </label>
+          <input type="text" id="TokenValuesBatchMinting" name="first" />
+          <button onClick={batchMinting}> Batch Minting </button>
+          <div id="batchMinting"> </div>
+          <div id="batchMintingFunc"> </div>
+          </div>
+
+          <div>
+          <label for="PkRedeemtokens">Wallet Private Key: </label>
+          <input type="text" id="PkRedeemtokens" name="first" />
+          <label for="addressWalletRedeem">Wallet Address: </label>
+          <input type="text" id="addressWalletRedeem" name="first" />
+          <label for="AmountofRedeem">Redeem amount: </label>
+          <input type="text" id="AmountofRedeem" name="first" />
+          <button onClick={redeem}> Redeem </button>
+          <div id="redeemAmount"> </div>
+          <div id="redeemAmountFunc"> </div>
+          </div>
+
+
       </header>
     </div>
   );
