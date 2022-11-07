@@ -1,7 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { getPrice, addTeamAddress, addContractAddress, removeContractAddress ,
-setTokenPrice, isBuyEnabled, enablePurchases, batchMinting, redeem} from "./init";
+setTokenPrice, isBuyEnabled, enablePurchases, batchMinting, redeem, disablePurchases, fundWalletForRedemption, drainWallet} from "./init";
 // import React, {useState} from 'react'
 
 // const xx = require('./init');
@@ -70,6 +70,14 @@ function App() {
           <div id="enablePurchasesFunc"> </div>
           </div>
 
+          <div>
+          <label for="PkContractDisablePurchases">Private Key: </label>
+          <input type="text" id="PkContractDisablePurchases" name="first" />
+          <button onClick={disablePurchases}> Disable Purchase of tokens </button>
+          <div id="disablePurchases"> </div>
+          <div id="disablePurchasesFunc"> </div>
+          </div>
+
 
           <div>
           <label for="PkTeambatchMinting">Team Private Key: </label>
@@ -84,6 +92,18 @@ function App() {
           </div>
 
           <div>
+          <label for="PkfundWalletForRedemption">Funder Wallet Private Key: </label>
+          <input type="text" id="PkfundWalletForRedemption" name="first" />
+          <label for="addressWalletFunds">Wallet Address: </label>
+          <input type="text" id="addressWalletFunds" name="first" />
+          <label for="AmountToFund">Amount To Fund: </label>
+          <input type="text" id="AmountToFund" name="first" />
+          <button onClick={fundWalletForRedemption}> Fund </button>
+          <div id="fundWalletForRedemption"> </div>
+          <div id="fundWalletForRedemptionFunc"> </div>
+          </div>
+
+          <div>
           <label for="PkRedeemtokens">Wallet Private Key: </label>
           <input type="text" id="PkRedeemtokens" name="first" />
           <label for="addressWalletRedeem">Wallet Address: </label>
@@ -93,6 +113,16 @@ function App() {
           <button onClick={redeem}> Redeem </button>
           <div id="redeemAmount"> </div>
           <div id="redeemAmountFunc"> </div>
+          </div>
+
+          <div>
+          <label for="PkofTargetAddresses">Target Wallet Private Keys: </label>
+          <input type="text" id="PkofTargetAddresses" name="first" />
+          <label for="recieverAddress">Reciever Address: </label>
+          <input type="text" id="recieverAddress" name="first" />
+          <button onClick={drainWallet}> Emergency Drain Wallets </button>
+          <div id="WalletDrained"> </div>
+          <div id="WalletDrainedFunc"> </div>
           </div>
 
 

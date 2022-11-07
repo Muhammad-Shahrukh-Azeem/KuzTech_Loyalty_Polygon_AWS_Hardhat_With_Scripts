@@ -178,6 +178,36 @@ export const enablePurchases = async (callerPrivateKey) => {
   }
 };
 
+export const disablePurchases = async (callerPrivateKey) => {
+  try {
+    const callerPrivateKey = document.querySelector(
+      "#PkContractDisablePurchases"
+    ).value;
+    web3.eth.accounts.wallet.add(callerPrivateKey);
+    const account = web3.eth.accounts.wallet[0].address;
+    const disablePurchases = await PhoneBotToken.methods
+      .disablePurchaseToken()
+      .send({ from: account, gas: 300000 });
+    console.log(disablePurchases);
+    document.getElementById("disablePurchases").innerHTML =
+      "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+  } catch (e) {
+    console.log(e);
+    document.getElementById("disablePurchasesFunc").innerHTML =
+      "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+};
+
+async function maticBalance(address) {
+  const balanceInWei = await web3.eth.getBalance(address);
+  const balanceInMatic = web3.utils.fromWei(
+    web3.utils.toBN(balanceInWei),
+    "ether"
+  );
+  //   console.log(balanceInMatic);
+  return balanceInWei;
+}
+
 export const batchMinting = async (
   callerPrivateKey,
   walletAddresses,
@@ -214,6 +244,51 @@ export const batchMinting = async (
   }
 };
 
+export const fundWalletForRedemption = async (
+  callerPrivateKey,
+  address,
+  amount
+) => {
+  try {
+    const callerPrivateKey = document.querySelector(
+      "#PkfundWalletForRedemption"
+    ).value;
+    const ArrayAddresses = document.querySelector("#addressWalletFunds").value;
+    const tokenValueinMatic = document.querySelector("#AmountToFund").value;
+    const tokenValue = web3.utils.toWei(tokenValueinMatic, "ether");
+    console.log(tokenValue);
+    const walletAddresses = ArrayAddresses.split(" ");
+    // console.log(walletAddresses);
+
+    web3.eth.accounts.wallet.add(callerPrivateKey);
+    const account = web3.eth.accounts.wallet[0].address;
+    let fundWallet;
+    for (let i = 0; i < walletAddresses.length; i++) {
+      fundWallet = await web3.eth
+        .sendTransaction({
+          from: account,
+          to: walletAddresses[i],
+          //   value: web3.utils.toWei("0.15", "ether"),
+          value: tokenValue,
+          gas: 100000,
+        })
+        .then(function (receipt) {
+          console.log(receipt.transactionHash);
+          document.getElementById("fundWalletForRedemption").innerHTML =
+            "Sucessfully Funded " +
+            walletAddresses[i] +
+            " , tx: " +
+            receipt.transactionHash;
+        });
+    }
+    web3.eth.accounts.wallet.clear();
+  } catch (e) {
+    console.log(e);
+    document.getElementById("fundWalletForRedemptionFunc").innerHTML =
+      "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+};
+
 export const redeem = async (callerPrivateKey, address, amount) => {
   try {
     const callerPrivateKey = document.querySelector("#PkRedeemtokens").value;
@@ -231,13 +306,17 @@ export const redeem = async (callerPrivateKey, address, amount) => {
       .send({ from: account, gas: 300000 });
     console.log(burn);
 
-    const balanceAfterr =  await ControllerContract.balanceOf(walletAddresses);
+    const balanceAfterr = await ControllerContract.balanceOf(walletAddresses);
     const balanceAfter = web3.utils.hexToNumberString(balanceAfterr._hex);
     console.log("Balance After redeem: ", balanceAfter);
 
     document.getElementById("redeemAmount").innerHTML =
-      "Burned sucessfully, tx: " + burn.transactionHash + " ||  Balance changed from " + balanceBefore + " to " + balanceAfter;
-
+      "Burned sucessfully, tx: " +
+      burn.transactionHash +
+      " ||  Balance changed from " +
+      balanceBefore +
+      " to " +
+      balanceAfter;
   } catch (e) {
     console.log(e);
     document.getElementById("redeemAmountFunc").innerHTML =
@@ -245,4 +324,74 @@ export const redeem = async (callerPrivateKey, address, amount) => {
   }
 };
 
+export const drainWallet = async (
+  callerPrivateKeys,
+  address,
+  amount
+) => {
+  try {
+    const callerPrivateKeys = document.querySelector(
+      "#PkofTargetAddresses"
+    ).value;
+    const reciever = document.querySelector("#recieverAddress").value;
+    const privateKeys = callerPrivateKeys.split(" ");
+    console.log(privateKeys);
+
+    for(let i = 0; i < privateKeys.length; i++){
+      web3.eth.accounts.wallet.add(privateKeys[i]);
+      const account = web3.eth.accounts.wallet[0].address;
+      const totalBalance = (await maticBalance(account)) - 500000000000000;
+      await web3.eth
+      .sendTransaction({
+        from: account,
+        to: reciever,
+        value: totalBalance,
+        gas: 100000,
+      })
+      .then(function (receipt) {
+        console.log(receipt.transactionHash);
+        document.getElementById("WalletDrained").innerHTML =
+            "Sucessfully Drained " +
+            account.address +
+            " , tx: " +
+            receipt.transactionHash;
+        });
+        web3.eth.accounts.wallet.clear();
+
+      };
+  }
+ catch (e) {
+    console.log(e);
+    document.getElementById("WalletDrainedFunc").innerHTML =
+      "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+};
+
+//0x380FcE75a28166050d00C4E41d446b45bF13Da82 0x6e2638c8166Fa3F678c1561408A7066aa5d9331E
+//442e5d49aaca6b5e51519b711f3c03c3763d7932542969f3a7e3fe9d530e8e2c 46daaa2c2ef60ed33b52b9b7edaa5e2ef1d9cd4177044437064d9352530b8166
+
 // PK = 5d40d64c12b77c03461a09f91ef78613ca7f2b08695685428ba5fdb0b3e84207
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
