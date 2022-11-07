@@ -21,6 +21,9 @@
     "@alch/alchemy-web3": "^1.4.6",
     "@openzeppelin/contracts": "^4.7.3",
     "dotenv": "^16.0.3",
+    "next": "^13.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "web3": "^1.8.0"
   }
 }
