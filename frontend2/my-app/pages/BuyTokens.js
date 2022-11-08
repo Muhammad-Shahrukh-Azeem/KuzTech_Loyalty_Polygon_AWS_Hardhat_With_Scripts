@@ -4,48 +4,44 @@ import styles from "../styles/Home.module.css";
 import { React, useState } from "react";
 import { ethers } from "ethers";
 
-export default function x() {
-   const [errorMessage, setErrorMessage] = useState(null);
-  	const [defaultAccount, setDefaultAccount] = useState(null);
-  	const [connButtonText, setConnButtonText] = useState('Connect Wallet');
-  
-  	const connectWalletHandler = () => {
-       if (typeof window !== "undefined") {
-        console.log("here")
-      window.ethereum.on('accountsChanged', accountChangedHandler);
-      window.ethereum.on('chainChanged', chainChangedHandler);
-    }
-  		if (window.ethereum && window.ethereum.isMetaMask) {
-  
-  			window.ethereum.request({ method: 'eth_requestAccounts'})
-  			.then(result => {
-  				accountChangedHandler(result[0]);
-  				setConnButtonText('Wallet Connected');
-  			})
-  			.catch(error => {
-  				setErrorMessage(error.message);
-        
-  			});
-  
-  		} else {
-  			console.log('Need to install MetaMask');
-  			setErrorMessage('Please install MetaMask browser extension to interact');
-  		}
-  	}
+export default function BuyTokens() {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [defaultAccount, setDefaultAccount] = useState(null);
+  const [connButtonText, setConnButtonText] = useState("Connect Wallet");
 
-  	const accountChangedHandler = (newAccount) => {
-  		setDefaultAccount(newAccount);
-  	}
-  
-  	const chainChangedHandler = () => {
-
-  		window.location.reload();
-  	}
-
+  const connectWalletHandler = () => {
     if (typeof window !== "undefined") {
-      window.ethereum.on('accountsChanged', accountChangedHandler);
-      window.ethereum.on('chainChanged', chainChangedHandler);
+      window.ethereum.on("accountsChanged", accountChangedHandler);
+      window.ethereum.on("chainChanged", chainChangedHandler);
     }
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((result) => {
+          accountChangedHandler(result[0]);
+          setConnButtonText("Wallet Connected");
+        })
+        .catch((error) => {
+          setErrorMessage(error.message);
+        });
+    } else {
+      console.log("Need to install MetaMask");
+      setErrorMessage("Please install MetaMask browser extension to interact");
+    }
+  };
+
+  const accountChangedHandler = (newAccount) => {
+    setDefaultAccount(newAccount);
+  };
+
+  const chainChangedHandler = () => {
+    window.location.reload();
+  };
+
+  if (typeof window !== "undefined") {
+    window.ethereum.on("accountsChanged", accountChangedHandler);
+    window.ethereum.on("chainChanged", chainChangedHandler);
+  }
 
   return (
     <div
@@ -64,7 +60,6 @@ export default function x() {
         <h1 className={styles.title}>Testing Interaction</h1>
 
         <div className={styles.card}>
-
           <button onClick={connectWalletHandler}>{connButtonText}</button>
 
           <h3> Wallet Address:{defaultAccount}</h3>
@@ -86,9 +81,3 @@ export default function x() {
     </div>
   );
 }
-
-
-
-
-
-
