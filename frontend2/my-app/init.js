@@ -367,6 +367,34 @@ export const drainWallet = async (
   }
 };
 
+// export const buyTokens = async (callerPrivateKey) => {
+//   try {
+//     web3.eth.accounts.wallet.add(callerPrivateKey);
+//     const account = web3.eth.accounts.wallet[0].address;
+//     const buyToken = await PhoneBotToken.methods
+//       .disablePurchaseToken()
+//       .send({ from: account, gas: 300000 });
+//     console.log(disablePurchases);
+//     document.getElementById("disablePurchases").innerHTML =
+//       "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+//   } catch (e) {
+//     console.log(e);
+//     document.getElementById("disablePurchasesFunc").innerHTML =
+//       "Error: " + e.transactionHash + " (if undefined check console)";
+//   }
+// };
+
+// async function maticBalance(address) {
+//   const balanceInWei = await web3.eth.getBalance(address);
+//   const balanceInMatic = web3.utils.fromWei(
+//     web3.utils.toBN(balanceInWei),
+//     "ether"
+//   );
+//   //   console.log(balanceInMatic);
+//   return balanceInWei;
+// }
+
+
 //0x380FcE75a28166050d00C4E41d446b45bF13Da82 0x6e2638c8166Fa3F678c1561408A7066aa5d9331E
 //442e5d49aaca6b5e51519b711f3c03c3763d7932542969f3a7e3fe9d530e8e2c 46daaa2c2ef60ed33b52b9b7edaa5e2ef1d9cd4177044437064d9352530b8166
 
