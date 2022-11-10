@@ -43,6 +43,32 @@ export default function BuyTokens() {
     window.ethereum.on("chainChanged", chainChangedHandler);
   }
 
+  // async function bb(amount)  {
+  //   try {
+  //     const buyToken = await controller.methods
+  //       .buyTokens(amount)
+  //       .send({ from: defaultAccount, gas: 300000 });
+  //     console.log(buyToken);
+  //     // document.getElementById("disablePurchases").innerHTML =
+  //     //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+  //   } catch (e) {
+  //     console.log(e);
+  //   //   document.getElementById("disablePurchasesFunc").innerHTML =
+  //   //     "Error: " + e.transactionHash + " (if undefined check console)";
+  //   }
+  // }
+  
+  async function maticBalance(address) {
+    const balanceInWei = await web3.eth.getBalance(address);
+    const balanceInMatic = web3.utils.fromWei(
+      web3.utils.toBN(balanceInWei),
+      "ether"
+    );
+    //   console.log(balanceInMatic);
+    return balanceInWei;
+  }
+  
+
   return (
     <div
       style={{
@@ -63,6 +89,14 @@ export default function BuyTokens() {
           <button onClick={connectWalletHandler}>{connButtonText}</button>
 
           <h3> Wallet Address:{defaultAccount}</h3>
+        </div>
+
+        <div className={styles.card}>
+        {/* <label for="first">Token amount: </label>
+          <input className={styles.grid} type="text" id="first" name="first" /> */}
+          <button onClick={bb(50)}>Buy Tokens</button>
+
+          <h3> </h3>
         </div>
       </main>
 

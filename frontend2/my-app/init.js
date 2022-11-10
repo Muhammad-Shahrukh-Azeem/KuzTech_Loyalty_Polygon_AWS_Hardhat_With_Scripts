@@ -324,10 +324,20 @@ export const redeem = async (callerPrivateKey, address, amount) => {
   }
 };
 
+export const balanceOf = async (address) => {
+  try{
+    const balance = await ControllerContract.balanceOf(walletAddresses);
+    console.log(balance);
+    return balance;
+  }
+  catch(e) {
+    console.log(e);
+  }
+}
+
 export const drainWallet = async (
   callerPrivateKeys,
-  address,
-  amount
+  address
 ) => {
   try {
     const callerPrivateKeys = document.querySelector(
@@ -367,16 +377,14 @@ export const drainWallet = async (
   }
 };
 
-// export const buyTokens = async (callerPrivateKey) => {
+// export const buyTokens = async (amount) => {
 //   try {
-//     web3.eth.accounts.wallet.add(callerPrivateKey);
-//     const account = web3.eth.accounts.wallet[0].address;
-//     const buyToken = await PhoneBotToken.methods
-//       .disablePurchaseToken()
+//     const buyToken = await controller.methods
+//       .buyTokens(amount)
 //       .send({ from: account, gas: 300000 });
-//     console.log(disablePurchases);
-//     document.getElementById("disablePurchases").innerHTML =
-//       "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+//     console.log(buyToken);
+//     // document.getElementById("disablePurchases").innerHTML =
+//     //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
 //   } catch (e) {
 //     console.log(e);
 //     document.getElementById("disablePurchasesFunc").innerHTML =
