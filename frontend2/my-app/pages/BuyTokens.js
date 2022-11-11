@@ -3,7 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { React, useState } from "react";
 import { ethers } from "ethers";
-import {buyTokens, selectedAccount, MetaMaskConnect} from '../init';
+import {buyTokens, balanceOf} from '../init';
 
 export default function BuyTokens() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -44,33 +44,6 @@ export default function BuyTokens() {
     window.ethereum.on("chainChanged", chainChangedHandler);
   }
 
-  // async function bb(amount)  {
-  //   try {
-  //     const amount = document.querySelector("#buyTokens").value;
-  //     const buyToken = await controller.methods
-  //       .buyTokens(amount)
-  //       .send({ from: defaultAccount, gas: 300000 });
-  //     console.log(buyToken);
-  //     // document.getElementById("disablePurchases").innerHTML =
-  //     //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
-  //   } catch (e) {
-  //     console.log(e);
-  //   //   document.getElementById("disablePurchasesFunc").innerHTML =
-  //   //     "Error: " + e.transactionHash + " (if undefined check console)";
-  //   }
-  // }
-  
-  // async function maticBalance(address) {
-  //   const balanceInWei = await web3.eth.getBalance(address);
-  //   const balanceInMatic = web3.utils.fromWei(
-  //     web3.utils.toBN(balanceInWei),
-  //     "ether"
-  //   );
-  //   //   console.log(balanceInMatic);
-  //   return balanceInWei;
-  // }
-  
-
   return (
     <div
       style={{
@@ -99,9 +72,17 @@ export default function BuyTokens() {
         <label for="buyTokensAmount">Token amount: </label>
           <input className={styles.grid} type="text" id="buyTokensAmount" name="buyTokensAmount" />
           <button onClick={buyTokens}>Buy Tokens</button>
-
-          <h3> </h3>
+          <div id="buyTokens"> </div>
+          <div id="buyTokensFunc"> </div>
         </div>
+
+        <div className={styles.card}>
+          <label for="balanceOfTokenAddress">Address: </label>
+          <input className={styles.grid} type="text" id="balanceOfTokenAddress" name="first" />
+          <button onClick={balanceOf}> Get Token Balance</button>
+          <div id="balanceOf"> </div>
+          <div id="balanceOfFunc"> </div>
+          </div>
       </main>
 
       <footer className={styles.footer}>

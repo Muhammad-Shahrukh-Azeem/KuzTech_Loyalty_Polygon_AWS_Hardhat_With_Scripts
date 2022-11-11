@@ -377,12 +377,20 @@ export const redeem = async (callerPrivateKey, address, amount) => {
 
 export const balanceOf = async (address) => {
   try{
-    const balance = await ControllerContract.balanceOf(walletAddresses);
+    const address = document.querySelector(
+      "#balanceOfTokenAddress"
+    ).value;
+    const balanceInHex = await ControllerContract.balanceOf(address);
+    const balance = web3.utils.hexToNumber(balanceInHex);
     console.log(balance);
+    document.getElementById("balanceOf").innerHTML =
+    "Balance is " + balance;
     return balance;
   }
   catch(e) {
     console.log(e);
+    document.getElementById("balanceOfFunc").innerHTML =
+    "Error: " + e.transactionHash + " (if undefined check console)";
   }
 }
 
@@ -441,12 +449,12 @@ export const buyTokens = async (addressTo, amount) => {
       .buyTokens(addressTo, amount)
       .send({ from: selectedAccount, gas: 300000, value: cost });
     console.log(buyToken);
-    // document.getElementById("disablePurchases").innerHTML =
-    //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+    document.getElementById("buyTokens").innerHTML =
+      "Purchases disabled sucessfully, tx: " + buyToken.transactionHash;
   } catch (e) {
     console.log(e);
-  //   document.getElementById("disablePurchasesFunc").innerHTML =
-  //     "Error: " + e.transactionHash + " (if undefined check console)";
+    document.getElementById("buyTokensFunc").innerHTML =
+      "Error: " + e.transactionHash + " (if undefined check console)";
   }
 }
 
