@@ -3,13 +3,16 @@ import Controller from "./controller.json";
 import { ethers } from "ethers";
 import React, { updateState } from "react";
 // import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import {defaultAccount} from "../my-app/pages/BuyTokens"
 
+let selectedAccount;
 const URL =
   "https://polygon-mumbai.g.alchemy.com/v2/1SYlUh-bv3x8t9VfOYKZwFOHmllc5Abr";
 const PK = "5d40d64c12b77c03461a09f91ef78613ca7f2b08695685428ba5fdb0b3e84207";
 const APIKEY = "3U11SWNDZRE6FXR8PIATRTQ885WPJ4Y6ZX";
 const CONTRACT_ADDRESS = "0xeB098CB2222A408A4c74Cb9dda537Db71a4F2317";
 const CONTROLLER_ADDRESS = "0x7086F9b3464BAC96a190266bd3Cc17D6e0DB18Ea";
+
 
 const provider = new ethers.getDefaultProvider(URL);
 const phoneBotToken = new ethers.Contract(CONTRACT_ADDRESS, PB.abi, provider);
@@ -40,8 +43,56 @@ const ControllerContract = new ethers.Contract(
   provider
 );
 
-// console.log(controller.methods)
-// console.log(pp)
+
+
+export const MetaMaskConnect = async () => {
+  let provider;
+  try {
+      provider = window.ethereum;
+      if (typeof provider !== "undefined") {
+
+          window.ethereum.on('accountsChanged', async function (accounts) {
+              let newAcc = accounts[0];
+              let baseURL = window.location.origin;
+              const pathName = window.location.pathname;
+              console.log(pathName)
+              console.log(`/${selectedAccount}`)
+              if (pathName.toLowerCase() === `/${selectedAccount}`) {
+                  console.log("same account");
+                  await createUsers(selectedAccount)
+                  window.location.replace(`${baseURL}/${newAcc}`);
+              } else {
+                  window.location.reload();
+              }
+
+          })
+      }
+  } catch (e) {
+      provider = new Web3.providers.HttpProvider(config.rpcURL);
+      console.log("no metamask", e)
+  }
+
+  // if (window.ethereum) {
+  //     web3 = new Web3(window.ethereum);
+  // } else if (window.web3) {
+  //     web3 = new Web3(window.web3.currentProvider);
+  // };
+
+  web3.eth.getAccounts()
+      .then(async (addr) => {
+          selectedAccount = addr[0];
+      })
+      .catch(() => {
+          selectedAccount = null
+      });
+
+
+
+}
+
+
+
+
 
 export const getPrice = async () => {
   try {
@@ -377,30 +428,28 @@ export const drainWallet = async (
   }
 };
 
-// export const buyTokens = async (amount) => {
-//   try {
-//     const buyToken = await controller.methods
-//       .buyTokens(amount)
-//       .send({ from: account, gas: 300000 });
-//     console.log(buyToken);
-//     // document.getElementById("disablePurchases").innerHTML =
-//     //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
-//   } catch (e) {
-//     console.log(e);
-//     document.getElementById("disablePurchasesFunc").innerHTML =
-//       "Error: " + e.transactionHash + " (if undefined check console)";
-//   }
-// };
+export const buyTokens = async (addressTo, amount) => {
+  MetaMaskConnect();
+  try {
+    const addressTo = document.querySelector("#buyTokensAddress").value;
+    const amount = document.querySelector("#buyTokensAmount").value;
+    const priceInHex = await phoneBotToken.tokenPrice();
+    const tokenPriceWei = web3.utils.hexToNumber(priceInHex);
+    const cost = tokenPriceWei*amount;
+    console.log(cost)
+    const buyToken = await controller.methods
+      .buyTokens(addressTo, amount)
+      .send({ from: selectedAccount, gas: 300000, value: cost });
+    console.log(buyToken);
+    // document.getElementById("disablePurchases").innerHTML =
+    //   "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;
+  } catch (e) {
+    console.log(e);
+  //   document.getElementById("disablePurchasesFunc").innerHTML =
+  //     "Error: " + e.transactionHash + " (if undefined check console)";
+  }
+}
 
-// async function maticBalance(address) {
-//   const balanceInWei = await web3.eth.getBalance(address);
-//   const balanceInMatic = web3.utils.fromWei(
-//     web3.utils.toBN(balanceInWei),
-//     "ether"
-//   );
-//   //   console.log(balanceInMatic);
-//   return balanceInWei;
-// }
 
 
 //0x380FcE75a28166050d00C4E41d446b45bF13Da82 0x6e2638c8166Fa3F678c1561408A7066aa5d9331E

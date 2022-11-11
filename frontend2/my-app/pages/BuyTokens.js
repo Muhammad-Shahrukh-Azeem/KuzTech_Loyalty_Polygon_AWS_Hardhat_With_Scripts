@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { React, useState } from "react";
 import { ethers } from "ethers";
+import {buyTokens, selectedAccount, MetaMaskConnect} from '../init';
 
 export default function BuyTokens() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -45,6 +46,7 @@ export default function BuyTokens() {
 
   // async function bb(amount)  {
   //   try {
+  //     const amount = document.querySelector("#buyTokens").value;
   //     const buyToken = await controller.methods
   //       .buyTokens(amount)
   //       .send({ from: defaultAccount, gas: 300000 });
@@ -58,15 +60,15 @@ export default function BuyTokens() {
   //   }
   // }
   
-  async function maticBalance(address) {
-    const balanceInWei = await web3.eth.getBalance(address);
-    const balanceInMatic = web3.utils.fromWei(
-      web3.utils.toBN(balanceInWei),
-      "ether"
-    );
-    //   console.log(balanceInMatic);
-    return balanceInWei;
-  }
+  // async function maticBalance(address) {
+  //   const balanceInWei = await web3.eth.getBalance(address);
+  //   const balanceInMatic = web3.utils.fromWei(
+  //     web3.utils.toBN(balanceInWei),
+  //     "ether"
+  //   );
+  //   //   console.log(balanceInMatic);
+  //   return balanceInWei;
+  // }
   
 
   return (
@@ -92,9 +94,11 @@ export default function BuyTokens() {
         </div>
 
         <div className={styles.card}>
-        {/* <label for="first">Token amount: </label>
-          <input className={styles.grid} type="text" id="first" name="first" /> */}
-          <button onClick={bb(50)}>Buy Tokens</button>
+        <label for="buyTokensAddress">To Address: </label>
+          <input className={styles.grid} type="text" id="buyTokensAddress" name="buyTokensAddress" />
+        <label for="buyTokensAmount">Token amount: </label>
+          <input className={styles.grid} type="text" id="buyTokensAmount" name="buyTokensAmount" />
+          <button onClick={buyTokens}>Buy Tokens</button>
 
           <h3> </h3>
         </div>
