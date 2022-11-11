@@ -106,15 +106,16 @@ export const getPrice = async () => {
   }
 };
 
-export const addTeamAddress = async (callerPrivateKey, newTeamAddress) => {
+export const addTeamAddress = async (newTeamAddress) => {
+  MetaMaskConnect();
   try {
-    const callerPrivateKey = document.querySelector("#first").value;
+    // const callerPrivateKey = document.querySelector("#first").value;
     const newTeamAddress = document.querySelector("#last").value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const addTeamAddresss = await PhoneBotToken.methods
       .addTeamAddress(newTeamAddress)
-      .send({ from: account, gas: 200000 });
+      .send({ from: selectedAccount, gas: 200000 });
     console.log(addTeamAddresss);
   } catch (e) {
     console.log(e);
@@ -127,18 +128,19 @@ export const addContractAddress = async (
   callerPrivateKey,
   newContractAddress
 ) => {
+  MetaMaskConnect();
   try {
-    const callerPrivateKey = document.querySelector(
-      "#PkContractAddContractAddress"
-    ).value;
+    // const callerPrivateKey = document.querySelector(
+    //   "#PkContractAddContractAddress"
+    // ).value;
     const newContractAddress = document.querySelector(
       "#AddContractAddress"
     ).value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const addContractAddresss = await PhoneBotToken.methods
       .addContractAddress(newContractAddress)
-      .send({ from: account, gas: 200000 });
+      .send({ from: selectedAccount, gas: 200000 });
     console.log(addContractAddresss);
     document.getElementById("addContractAddressFunc").innerHTML =
       "Contract Added Sucessfully, tx: " + newContractAddress;
@@ -150,21 +152,23 @@ export const addContractAddress = async (
 };
 
 export const removeContractAddress = async (
-  callerPrivateKey,
   ContractAddress
 ) => {
+  MetaMaskConnect();
+
   try {
-    const callerPrivateKey = document.querySelector(
-      "#PkContractRemoveContractAddress"
-    ).value;
+
+    // const callerPrivateKey = document.querySelector(
+    //   "#PkContractRemoveContractAddress"
+    // ).value;
     const ContractAddress = document.querySelector(
       "#ContractAddressRemoveContractAddress"
     ).value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const removeContractAddresss = await PhoneBotToken.methods
       .removeContractAddress(ContractAddress)
-      .send({ from: account, gas: 200000 });
+      .send({ from: selectedAccount, gas: 200000 });
     console.log(removeContractAddresss);
     document.getElementById("removeContractAddressFunc").innerHTML =
       "Contract removed Sucessfully, tx: " + ContractAddress;
@@ -176,16 +180,18 @@ export const removeContractAddress = async (
 };
 
 export const setTokenPrice = async (callerPrivateKey, newPrice) => {
+  MetaMaskConnect();
+
   try {
-    const callerPrivateKey = document.querySelector(
-      "#PkContractSetTokenPrice"
-    ).value;
+    // const callerPrivateKey = document.querySelector(
+    //   "#PkContractSetTokenPrice"
+    // ).value;
     const newPrice = document.querySelector("#setNewTokenPrice").value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const setTokenPrice = await PhoneBotToken.methods
       .setTokenPrice(newPrice)
-      .send({ from: account, gas: 300000 });
+      .send({ from: selectedAccount, gas: 300000 });
     console.log(setTokenPrice);
     document.getElementById("showSetNewTokenPrice").innerHTML =
       "New Price set sucessfully: " + newPrice;
@@ -197,6 +203,7 @@ export const setTokenPrice = async (callerPrivateKey, newPrice) => {
 };
 
 export const isBuyEnabled = async () => {
+
   try {
     const isenabled = await phoneBotToken.allowPurchaseToken();
     console.log(isenabled);
@@ -210,15 +217,17 @@ export const isBuyEnabled = async () => {
 };
 
 export const enablePurchases = async (callerPrivateKey) => {
+  MetaMaskConnect();
+
   try {
-    const callerPrivateKey = document.querySelector(
-      "#PkContractEnablePurchases"
-    ).value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // const callerPrivateKey = document.querySelector(
+    //   "#PkContractEnablePurchases"
+    // ).value;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const enablePurchases = await PhoneBotToken.methods
       .enablePurchaseToken()
-      .send({ from: account, gas: 300000 });
+      .send({ from: selectedAccount, gas: 300000 });
     console.log(enablePurchases);
     document.getElementById("enablePurchases").innerHTML =
       "Purchases enabled sucessfully, tx: " + enablePurchases.transactionHash;
@@ -230,15 +239,16 @@ export const enablePurchases = async (callerPrivateKey) => {
 };
 
 export const disablePurchases = async (callerPrivateKey) => {
+  MetaMaskConnect();
   try {
-    const callerPrivateKey = document.querySelector(
-      "#PkContractDisablePurchases"
-    ).value;
-    web3.eth.accounts.wallet.add(callerPrivateKey);
-    const account = web3.eth.accounts.wallet[0].address;
+    // const callerPrivateKey = document.querySelector(
+    //   "#PkContractDisablePurchases"
+    // ).value;
+    // web3.eth.accounts.wallet.add(callerPrivateKey);
+    // const account = web3.eth.accounts.wallet[0].address;
     const disablePurchases = await PhoneBotToken.methods
       .disablePurchaseToken()
-      .send({ from: account, gas: 300000 });
+      .send({ from: selectedAccount, gas: 300000 });
     console.log(disablePurchases);
     document.getElementById("disablePurchases").innerHTML =
       "Purchases disabled sucessfully, tx: " + disablePurchases.transactionHash;

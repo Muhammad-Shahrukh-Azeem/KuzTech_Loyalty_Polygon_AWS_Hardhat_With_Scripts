@@ -27,8 +27,8 @@ export default function Home() {
         <div >
           
           <div className={styles.card}>
-          <label for="first">Private Key: </label>
-          <input className={styles.grid} type="text" id="first" name="first" />
+          {/* <label for="first">Private Key: </label>
+          <input className={styles.grid} type="text" id="first" name="first" /> */}
           <label for="last"> Team Address: </label>
           <input className={styles.grid} type="text" id="last" name="last" />
           <button  onClick={addTeamAddress}> Adding Team Address </button>
@@ -36,8 +36,8 @@ export default function Home() {
           </div>
 
           <div className={styles.card}>
-          <label for="PkContractAddContractAddress">Private Key: </label>
-          <input className={styles.grid} type="text" id="PkContractAddContractAddress" name="first" />
+          {/* <label for="PkContractAddContractAddress">Private Key: </label>
+          <input className={styles.grid} type="text" id="PkContractAddContractAddress" name="first" /> */}
           <label for="AddContractAddress"> Contract Address: </label>
           <input className={styles.grid} type="text" id="AddContractAddress" name="last" />
           <button onClick={addContractAddress}> Adding Controller Contract Address </button>
@@ -47,8 +47,8 @@ export default function Home() {
 
 
           <div className={styles.card}>
-          <label for="PkContractRemoveContractAddress">Private Key: </label>
-          <input className={styles.grid} type="text" id="PkContractRemoveContractAddress" name="first" />
+          {/* <label for="PkContractRemoveContractAddress">Private Key: </label>
+          <input className={styles.grid} type="text" id="PkContractRemoveContractAddress" name="first" /> */}
           <label for="ContractAddressRemoveContractAddress"> Contract Address: </label>
           <input className={styles.grid} type="text" id="ContractAddressRemoveContractAddress" name="last" />
           <button onClick={removeContractAddress}> Removing Controller Contract Address </button>
@@ -57,8 +57,8 @@ export default function Home() {
           </div>
 
           <div className={styles.card}>
-          <label for="PkContractSetTokenPrice">Private Key: </label>
-          <input className={styles.grid} type="text" id="PkContractSetTokenPrice" name="first" />
+          {/* <label for="PkContractSetTokenPrice">Private Key: </label>
+          <input className={styles.grid} type="text" id="PkContractSetTokenPrice" name="first" /> */}
           <label for="setNewTokenPrice"> New Token Price: </label>
           <input className={styles.grid} type="number" id="setNewTokenPrice" name="last" />
           <button onClick={setTokenPrice}> Set New Token Price </button>
@@ -73,16 +73,16 @@ export default function Home() {
         </div>
 
         <div className={styles.card}>
-          <label for="PkContractEnablePurchases">Private Key: </label>
-          <input className={styles.grid} type="text" id="PkContractEnablePurchases" name="first" />
+          {/* <label for="PkContractEnablePurchases">Private Key: </label>
+          <input className={styles.grid} type="text" id="PkContractEnablePurchases" name="first" /> */}
           <button onClick={enablePurchases}> Enable Purchase of tokens </button>
           <div id="enablePurchases"> </div>
           <div id="enablePurchasesFunc"> </div>
           </div>
 
           <div className={styles.card}>
-          <label for="PkContractDisablePurchases">Private Key: </label>
-          <input className={styles.grid} type="text" id="PkContractDisablePurchases" name="first" />
+          {/* <label for="PkContractDisablePurchases">Private Key: </label>
+          <input className={styles.grid} type="text" id="PkContractDisablePurchases" name="first" /> */}
           <button onClick={disablePurchases}> Disable Purchase of tokens </button>
           <div id="disablePurchases"> </div>
           <div id="disablePurchasesFunc"> </div>
