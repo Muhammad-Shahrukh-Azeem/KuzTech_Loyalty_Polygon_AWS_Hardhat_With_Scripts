@@ -125,7 +125,6 @@ export const addTeamAddress = async (newTeamAddress) => {
 };
 
 export const addContractAddress = async (
-  callerPrivateKey,
   newContractAddress
 ) => {
   MetaMaskConnect();
@@ -179,7 +178,7 @@ export const removeContractAddress = async (
   }
 };
 
-export const setTokenPrice = async (callerPrivateKey, newPrice) => {
+export const setTokenPrice = async (newPrice) => {
   MetaMaskConnect();
 
   try {
@@ -216,7 +215,7 @@ export const isBuyEnabled = async () => {
   }
 };
 
-export const enablePurchases = async (callerPrivateKey) => {
+export const enablePurchases = async () => {
   MetaMaskConnect();
 
   try {
@@ -238,7 +237,7 @@ export const enablePurchases = async (callerPrivateKey) => {
   }
 };
 
-export const disablePurchases = async (callerPrivateKey) => {
+export const disablePurchases = async () => {
   MetaMaskConnect();
   try {
     // const callerPrivateKey = document.querySelector(
