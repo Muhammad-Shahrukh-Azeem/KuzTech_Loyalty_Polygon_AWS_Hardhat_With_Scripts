@@ -1,9 +1,9 @@
 import PB from "./PhoneBotToken.json";
 import Controller from "./controller.json";
 import { ethers } from "ethers";
-import React, { updateState } from "react";
-// import { createAlchemyWeb3 } from "@alch/alchemy-web3";
-import {defaultAccount} from "../my-app/pages/BuyTokens"
+
+
+
 
 let selectedAccount;
 const URL =
