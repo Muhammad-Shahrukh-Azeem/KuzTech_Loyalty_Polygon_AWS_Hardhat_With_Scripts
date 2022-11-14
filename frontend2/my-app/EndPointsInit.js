@@ -59,10 +59,24 @@ const balanceOf = async (address) => {
     }
   }
 
+const getPrice = async () => {
+    try {
+      const pprice = await phoneBotToken.tokenPrice();
+      const price = web3.utils.hexToNumber(pprice);
+      return price;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+
+
+
 
 
   
 //   balanceOf('0x6e2638c8166Fa3F678c1561408A7066aa5d9331E')
   module.exports = {
-    balanceOf
+    balanceOf,
+    getPrice
   };

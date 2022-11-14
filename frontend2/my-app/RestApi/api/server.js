@@ -24,6 +24,16 @@ server.get('/balanceOf/:id', async (req, res) => {
     }
 });
 
+server.get('/getPrice', async (req, res) => {
+    try {
+        const price = await balance.getPrice();
+        // console.log(balanceO);
+        res.json(price)
+    } catch (error) {
+        console.log(error)
+    }
+});
+
 server.post('/todos', (req, res) => {
 
 })
