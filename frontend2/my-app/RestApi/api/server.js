@@ -20,7 +20,19 @@ server.get("/", (req, res) => {
 server.get("/balanceOf/:address", async (req, res) => {
   const { address } = req.params;
   try {
-    const balanceO = await init.balanceOf(id);
+    const balanceO = await init.balanceOf(address);
+    // console.log(balanceO);
+    res.json(balanceO);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// Address is a wallet address and that will return The MATIC Balcnce
+server.get("/maticBalance/:address", async (req, res) => {
+  const { address } = req.params;
+  try {
+    const balanceO = await init.maticBalance(address);
     // console.log(balanceO);
     res.json(balanceO);
   } catch (error) {
@@ -52,6 +64,7 @@ server.get("/isBuyEnabled", async (req, res) => {
     console.log(e);
   }
 });
+
 
 // It mints the tokens in users account
 // Inputs are callerPrivateKey(Hex) our key

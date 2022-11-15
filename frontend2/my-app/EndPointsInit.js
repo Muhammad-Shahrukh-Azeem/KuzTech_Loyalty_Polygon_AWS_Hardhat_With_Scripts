@@ -137,6 +137,15 @@ const isBuyEnabled = async () => {
     }
   };
   
+  const maticBalance = async (address) => {
+    const balanceInWei = await web3.eth.getBalance(address);
+    const balanceInMatic = web3.utils.fromWei(
+      web3.utils.toBN(balanceInWei),
+      "ether"
+    );
+    //   console.log(balanceInMatic);
+    return balanceInWei;
+  }
 
 
 
@@ -150,5 +159,6 @@ const isBuyEnabled = async () => {
     getPrice,
     isBuyEnabled,
     batchMinting,
-    redeem
+    redeem,
+    maticBalance
   };
