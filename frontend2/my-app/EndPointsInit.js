@@ -69,7 +69,55 @@ const getPrice = async () => {
     }
   };
   
+const isBuyEnabled = async () => {
 
+    try {
+      const isenabled = await phoneBotToken.allowPurchaseToken();
+      // console.log(isenabled);
+      return isenabled;
+
+    } catch (e) {
+      console.log(e);
+
+    }
+  };
+
+
+ const batchMinting = async (
+    callerPrivateKey,
+    walletAddresses,
+    tokenValues
+  ) => {
+    try {
+      // const callerPrivateKey = document.querySelector(
+      //   "#PkTeambatchMinting"
+      // ).value;
+      // const walletAddresses = document.querySelector(
+      //   "#AddressWalletsBatchMinting"
+      // ).value;
+  
+      // const tokenValues = document.querySelector(
+      //   "#TokenValuesBatchMinting"
+      // ).value;
+      // const myArray = [walletAddresses];
+      // const myArray = walletAddresses.split(" ");
+      // const myArray2 = tokenValues.split(" ");
+      // console.log(myArray);
+      // console.log(myArray2);
+      web3.eth.accounts.wallet.add(callerPrivateKey);
+      const account = web3.eth.accounts.wallet[0].address;
+      const batchMinting = await controller.methods
+        .batchMinting(walletAddresses, tokenValues)
+        .send({ from: account, gas: 300000 });
+      console.log(batchMinting);
+      // document.getElementById("batchMinting").innerHTML =
+      //   "Batch minted sucessfully, tx: " + batchMinting.transactionHash;
+    } catch (e) {
+      console.log(e);
+      // document.getElementById("batchMintingFunc").innerHTML =
+      //   "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+  };
 
 
 
@@ -78,5 +126,7 @@ const getPrice = async () => {
 //   balanceOf('0x6e2638c8166Fa3F678c1561408A7066aa5d9331E')
   module.exports = {
     balanceOf,
-    getPrice
+    getPrice,
+    isBuyEnabled,
+    batchMinting
   };
