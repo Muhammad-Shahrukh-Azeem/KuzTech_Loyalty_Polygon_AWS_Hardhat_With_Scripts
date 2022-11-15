@@ -89,35 +89,56 @@ const isBuyEnabled = async () => {
     tokenValues
   ) => {
     try {
-      // const callerPrivateKey = document.querySelector(
-      //   "#PkTeambatchMinting"
-      // ).value;
-      // const walletAddresses = document.querySelector(
-      //   "#AddressWalletsBatchMinting"
-      // ).value;
-  
-      // const tokenValues = document.querySelector(
-      //   "#TokenValuesBatchMinting"
-      // ).value;
-      // const myArray = [walletAddresses];
-      // const myArray = walletAddresses.split(" ");
-      // const myArray2 = tokenValues.split(" ");
-      // console.log(myArray);
-      // console.log(myArray2);
+
       web3.eth.accounts.wallet.add(callerPrivateKey);
       const account = web3.eth.accounts.wallet[0].address;
       const batchMinting = await controller.methods
         .batchMinting(walletAddresses, tokenValues)
         .send({ from: account, gas: 300000 });
-      console.log(batchMinting);
-      // document.getElementById("batchMinting").innerHTML =
-      //   "Batch minted sucessfully, tx: " + batchMinting.transactionHash;
+      return batchMinting;
     } catch (e) {
       console.log(e);
-      // document.getElementById("batchMintingFunc").innerHTML =
+    }
+  };
+
+
+  const redeem = async (callerPrivateKey, walletAddress, amount) => {
+    try {
+      // const callerPrivateKey = document.querySelector("#PkRedeemtokens").value;
+      // const walletAddresses = document.querySelector(
+      //   "#addressWalletRedeem"
+      // ).value;
+      // const tokenValues = document.querySelector("#AmountofRedeem").value;
+      web3.eth.accounts.wallet.add(callerPrivateKey);
+      const account = web3.eth.accounts.wallet[0].address;
+      const balanceBeforee = await ControllerContract.balanceOf(walletAddress);
+      const balanceBefore = web3.utils.hexToNumberString(balanceBeforee._hex);
+      console.log("Balance before redeem: ", balanceBefore);
+      const burn = await PhoneBotToken.methods
+        .burn(amount)
+        .send({ from: account, gas: 300000 });
+      console.log(burn);
+  
+      const balanceAfterr = await ControllerContract.balanceOf(walletAddress);
+      const balanceAfter = web3.utils.hexToNumberString(balanceAfterr._hex);
+      console.log("Balance After redeem: ", balanceAfter);
+      return burn;
+      // document.getElementById("redeemAmount").innerHTML =
+      //   "Burned sucessfully, tx: " +
+      //   burn.transactionHash +
+      //   " ||  Balance changed from " +
+      //   balanceBefore +
+      //   " to " +
+      //   balanceAfter;
+    } catch (e) {
+      console.log(e);
+      // document.getElementById("redeemAmountFunc").innerHTML =
       //   "Error: " + e.transactionHash + " (if undefined check console)";
     }
   };
+  
+
+
 
 
 
@@ -128,5 +149,6 @@ const isBuyEnabled = async () => {
     balanceOf,
     getPrice,
     isBuyEnabled,
-    batchMinting
+    batchMinting,
+    redeem
   };

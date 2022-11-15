@@ -9,7 +9,8 @@ const { Wallet } = require("ethers");
 server.use(cors());
 server.use(helmet());
 server.use(express.json());
-const bodyParser = require('body-parser'); 
+const bodyParser = require("body-parser");
+const { json } = require("express");
 server.use(bodyParser.json());
 server.get("/", (req, res) => {
   res.send("welcome !!!!!!!!!!!!!");
@@ -46,9 +47,32 @@ server.get("/isBuyEnabled", async (req, res) => {
   }
 });
 
-server.post("/BatchMint", function(req, res) {
-    var dog = req.body.privateKey;
-    res.send(dog);
+server.post("/BatchMint", async (req, res) => {
+  try {
+    const pk = req.body.pk;
+    const wallets = req.body.wallets;
+    const tokens = req.body.tokens;
+
+    const BatchMint = await init.batchMinting(pk, wallets, tokens);
+    console.log(BatchMint);
+
+    res.send(BatchMint)
+  } catch (error) {
+    console.log(error);
+  }
 });
+
+server.post("/redeem", async(req, res) => {
+  try {
+    const pk = req.body.pk;
+    const wallet = req.body.wallets;
+    const token = req.body.tokens;
+
+    const redeem = await init.redeem(pk, wallet, token);
+    res.send(redeem)
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 module.exports = server;
