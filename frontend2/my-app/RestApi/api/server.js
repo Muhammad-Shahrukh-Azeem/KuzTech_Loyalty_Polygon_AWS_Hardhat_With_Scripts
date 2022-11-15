@@ -16,8 +16,9 @@ server.get("/", (req, res) => {
   res.send("welcome !!!!!!!!!!!!!");
 });
 
-server.get("/balanceOf/:id", async (req, res) => {
-  const { id } = req.params;
+// Address is a wallet address and that will return its token balance
+server.get("/balanceOf/:address", async (req, res) => {
+  const { address } = req.params;
   try {
     const balanceO = await init.balanceOf(id);
     // console.log(balanceO);
@@ -27,6 +28,8 @@ server.get("/balanceOf/:id", async (req, res) => {
   }
 });
 
+// It returns the current token price
+// No Input
 server.get("/getPrice", async (req, res) => {
   try {
     const price = await init.getPrice();
@@ -37,6 +40,9 @@ server.get("/getPrice", async (req, res) => {
   }
 });
 
+
+// It returns a bool if its enabled or not
+// No Input
 server.get("/isBuyEnabled", async (req, res) => {
   try {
     const isEnabled = await init.isBuyEnabled();
@@ -47,6 +53,10 @@ server.get("/isBuyEnabled", async (req, res) => {
   }
 });
 
+// It mints the tokens in users account
+// Inputs are callerPrivateKey(Hex) our key
+//            Wallets array which holds addresses in hex (Customer's)
+//            Token values array MUST BE WITH RESPECT TO ADDRESSES in uint
 server.post("/BatchMint", async (req, res) => {
   try {
     const pk = req.body.pk;
@@ -62,6 +72,10 @@ server.post("/BatchMint", async (req, res) => {
   }
 });
 
+// It burns the tokens from users account
+// Inputs are callerPrivateKey(Hex) CUSTOMER's KEY
+//            Wallets address in hex (Customer's)
+//            Token values MUST BE WITH RESPECT TO ADDRESSES in uint
 server.post("/redeem", async(req, res) => {
   try {
     const pk = req.body.pk;
