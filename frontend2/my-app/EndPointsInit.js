@@ -43,6 +43,52 @@ const ControllerContract = new ethers.Contract(
   provider
 );
 
+const MetaMaskConnect = async () => {
+  let provider;
+  try {
+      provider = window.ethereum;
+      if (typeof provider !== "undefined") {
+
+          window.ethereum.on('accountsChanged', async function (accounts) {
+              let newAcc = accounts[0];
+              let baseURL = window.location.origin;
+              const pathName = window.location.pathname;
+              console.log(pathName)
+              console.log(`/${selectedAccount}`)
+              if (pathName.toLowerCase() === `/${selectedAccount}`) {
+                  console.log("same account");
+                  await createUsers(selectedAccount)
+                  window.location.replace(`${baseURL}/${newAcc}`);
+              } else {
+                  window.location.reload();
+              }
+
+          })
+      }
+  } catch (e) {
+      provider = new Web3.providers.HttpProvider(config.rpcURL);
+      console.log("no metamask", e)
+  }
+
+  // if (window.ethereum) {
+  //     web3 = new Web3(window.ethereum);
+  // } else if (window.web3) {
+  //     web3 = new Web3(window.web3.currentProvider);
+  // };
+
+  web3.eth.getAccounts()
+      .then(async (addr) => {
+          selectedAccount = addr[0];
+      })
+      .catch(() => {
+          selectedAccount = null
+      });
+
+
+
+}
+
+
 
 const balanceOf = async (address) => {
     try{
@@ -147,9 +193,101 @@ const isBuyEnabled = async () => {
     return balanceInWei;
   }
 
+  const addTeamAddress = async (newTeamAddress) => {
+    MetaMaskConnect();
+    try {
+      // const callerPrivateKey = document.querySelector("#first").value;
+      // const newTeamAddress = document.querySelector("#last").value;
+      // web3.eth.accounts.wallet.add(callerPrivateKey);
+      // const account = web3.eth.accounts.wallet[0].address;
+      const addTeamAddresss = await PhoneBotToken.methods
+        .addTeamAddress(newTeamAddress)
+        .send({ from: selectedAccount, gas: 200000 });
+      console.log(addTeamAddresss);
+    } catch (e) {
+      console.log(e);
+    //   document.getElementById("addTeamAddress").innerHTML =
+    //     "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+  };
 
 
-
+  const addContractAddress = async (
+    newContractAddress
+  ) => {
+    MetaMaskConnect();
+    try {
+      // const callerPrivateKey = document.querySelector(
+      //   "#PkContractAddContractAddress"
+      // ).value;
+      // const newContractAddress = document.querySelector(
+      //   "#AddContractAddress"
+      // ).value;
+      // web3.eth.accounts.wallet.add(callerPrivateKey);
+      // const account = web3.eth.accounts.wallet[0].address;
+      const addContractAddresss = await PhoneBotToken.methods
+        .addContractAddress(newContractAddress)
+        .send({ from: selectedAccount, gas: 200000 });
+      console.log(addContractAddresss);
+      // document.getElementById("addContractAddressFunc").innerHTML =
+      //   "Contract Added Sucessfully, tx: " + newContractAddress;
+    } catch (e) {
+      console.log(e);
+      // document.getElementById("addContractAddress").innerHTML =
+      //   "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+  };
+  
+   const removeContractAddress = async (
+    ContractAddress
+  ) => {
+    MetaMaskConnect();
+  
+    try {
+  
+      // const callerPrivateKey = document.querySelector(
+      //   "#PkContractRemoveContractAddress"
+      // ).value;
+      // const ContractAddress = document.querySelector(
+      //   "#ContractAddressRemoveContractAddress"
+      // ).value;
+      // web3.eth.accounts.wallet.add(callerPrivateKey);
+      // const account = web3.eth.accounts.wallet[0].address;
+      const removeContractAddresss = await PhoneBotToken.methods
+        .removeContractAddress(ContractAddress)
+        .send({ from: selectedAccount, gas: 200000 });
+      console.log(removeContractAddresss);
+      // document.getElementById("removeContractAddressFunc").innerHTML =
+      //   "Contract removed Sucessfully, tx: " + ContractAddress;
+    } catch (e) {
+      console.log(e);
+      // document.getElementById("removeContractAddress").innerHTML =
+      //   "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+  };
+  
+ const setTokenPrice = async (newPrice) => {
+    MetaMaskConnect();
+  
+    try {
+      // const callerPrivateKey = document.querySelector(
+      //   "#PkContractSetTokenPrice"
+      // ).value;
+      // const newPrice = document.querySelector("#setNewTokenPrice").value;
+      // web3.eth.accounts.wallet.add(callerPrivateKey);
+      // const account = web3.eth.accounts.wallet[0].address;
+      const setTokenPrice = await PhoneBotToken.methods
+        .setTokenPrice(newPrice)
+        .send({ from: selectedAccount, gas: 300000 });
+      console.log(setTokenPrice);
+      // document.getElementById("showSetNewTokenPrice").innerHTML =
+        // "New Price set sucessfully: " + newPrice;
+    } catch (e) {
+      console.log(e);
+      // document.getElementById("setNewTokenPriceFunc").innerHTML =
+        // "Error: " + e.transactionHash + " (if undefined check console)";
+    }
+  };
 
 
   
@@ -160,5 +298,10 @@ const isBuyEnabled = async () => {
     isBuyEnabled,
     batchMinting,
     redeem,
-    maticBalance
+    maticBalance,
+    MetaMaskConnect,
+    addTeamAddress,
+    addContractAddress,
+    removeContractAddress,
+    setTokenPrice
   };

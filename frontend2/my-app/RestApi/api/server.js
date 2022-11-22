@@ -20,9 +20,9 @@ server.get("/", (req, res) => {
 server.get("/balanceOf/:address", async (req, res) => {
   const { address } = req.params;
   try {
-    const balanceO = await init.balanceOf(address);
+    const balanceOf = await init.balanceOf(address);
     // console.log(balanceO);
-    res.json(balanceO);
+    res.json(balanceOf);
   } catch (error) {
     console.log(error);
   }
@@ -32,9 +32,9 @@ server.get("/balanceOf/:address", async (req, res) => {
 server.get("/maticBalance/:address", async (req, res) => {
   const { address } = req.params;
   try {
-    const balanceO = await init.maticBalance(address);
+    const balanceOf = await init.maticBalance(address);
     // console.log(balanceO);
-    res.json(balanceO);
+    res.json(balanceOf);
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +58,7 @@ server.get("/getPrice", async (req, res) => {
 server.get("/isBuyEnabled", async (req, res) => {
   try {
     const isEnabled = await init.isBuyEnabled();
-    console.log(isEnabled);
+    // console.log(isEnabled);
     res.json(isEnabled);
   } catch (e) {
     console.log(e);
@@ -77,9 +77,9 @@ server.post("/BatchMint", async (req, res) => {
     const tokens = req.body.tokens;
 
     const BatchMint = await init.batchMinting(pk, wallets, tokens);
-    console.log(BatchMint);
+    // console.log(BatchMint.transactionHash);
 
-    res.send(BatchMint)
+    res.send(BatchMint.transactionHash)
   } catch (error) {
     console.log(error);
   }
@@ -96,10 +96,24 @@ server.post("/redeem", async(req, res) => {
     const token = req.body.tokens;
 
     const redeem = await init.redeem(pk, wallet, token);
-    res.send(redeem)
+    res.send(redeem.transactionHash)
   } catch (error) {
     console.log(error);
   }
 })
+
+
+// These functions below will request metamask connection so we won't be able to call them in postman.
+server.post("/addTeamAddress", async(req, res) => {
+  try {
+    const walletAddress = req.body.newTeamAddress;
+
+    const addTeamAddress = await init.addTeamAddress(walletAddress);
+    res.send(addTeamAddress.transactionHash)
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 
 module.exports = server;
