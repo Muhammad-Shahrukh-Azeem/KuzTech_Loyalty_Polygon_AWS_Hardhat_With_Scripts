@@ -26,4 +26,4 @@ function creatingWallets() {
 
 module.exports = { creatingWallets };
 
-creatingWallets();
+
