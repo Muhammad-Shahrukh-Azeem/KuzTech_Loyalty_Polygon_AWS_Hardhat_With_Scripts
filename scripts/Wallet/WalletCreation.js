@@ -1,4 +1,5 @@
 const { ethers } = require("ethers");
+const { maticBalance } = require("../../frontend2/my-app/EndPointsInit");
 
 function newWallet() {
   const wallet = ethers.Wallet.createRandom();
@@ -9,9 +10,20 @@ function newWallet() {
     mnemonic: wallet._mnemonic().phrase,
   };
 
-  console.log(response);
+  // console.log(response);
   // res.json({ data: response });
   return response;
 }
 
-newWallet();
+function creatingWallets() {
+  let arr = new Array;
+  for (let i = 0; i < 10; i++) {
+    arr[i] = newWallet();
+  }
+  console.log(arr)
+  return arr;
+}
+
+module.exports = { creatingWallets };
+
+creatingWallets();

@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const server = express();
+const WALLET = require("../../../../scripts/Wallet/WalletCreation");
 
 const init = require("../../EndPointsInit");
 const { Wallet } = require("ethers");
@@ -102,11 +103,31 @@ server.post("/redeem", async(req, res) => {
   }
 })
 
-
 // These functions below will request metamask connection so we won't be able to call them in postman.
+server.get("/connectMetaMask", async(req, res) => {
+  try {
+    const connected = await init.MetaMaskConnect();
+    res.json(connected)
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+server.get("/CreatingWallets", async(req, res) => {
+  try {
+    const CreatingWallet = WALLET.creatingWallets();
+    console.log(CreatingWallet);
+    res.send(CreatingWallet)
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+
+
 server.post("/addTeamAddress", async(req, res) => {
   try {
-    const walletAddress = req.body.newTeamAddress;
+    const walletAddress = req.body.walletAddress;
 
     const addTeamAddress = await init.addTeamAddress(walletAddress);
     res.send(addTeamAddress.transactionHash)
