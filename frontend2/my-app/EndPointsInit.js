@@ -203,6 +203,26 @@ const maticBalance = async (address) => {
   return balanceInWei;
 };
 
+
+const maticBalanceMany = async (addressArray) => {
+  let arr = new Array;
+  // console.log(addressArray)
+  for(let i = 0; i < addressArray.length; i++){
+  const balanceInWei = await web3.eth.getBalance(addressArray[i]);
+  const balanceInMatic = web3.utils.fromWei(
+    web3.utils.toBN(balanceInWei),
+    "ether"
+  );
+  const response = {
+      userAddress: addressArray[i],
+      MaticBalance: balanceInMatic,
+  };
+  arr[i] = response;
+  }
+  //   console.log(balanceInMatic);
+  return arr;
+};
+
 const addTeamAddress = async (newTeamAddress) => {
   await MetaMaskConnect();
   try {
@@ -306,4 +326,5 @@ module.exports = {
   addContractAddress,
   removeContractAddress,
   setTokenPrice,
+  maticBalanceMany
 };

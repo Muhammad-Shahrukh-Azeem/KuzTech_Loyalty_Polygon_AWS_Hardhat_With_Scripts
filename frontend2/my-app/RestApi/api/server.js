@@ -41,6 +41,20 @@ server.get("/maticBalance/:address", async (req, res) => {
   }
 });
 
+// Address is a wallet address and that will return The MATIC Balcnce
+server.post("/maticBalanceMany", async (req, res) => {
+  const addressArray = req.body.addressArray;
+  console.log(req.body)
+  console.log(addressArray)
+  try {
+    const responseArray = await init.maticBalanceMany(addressArray);
+    // console.log(balanceO);
+    res.json(responseArray);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 // It returns the current token price
 // No Input
 server.get("/getPrice", async (req, res) => {
