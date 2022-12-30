@@ -21,7 +21,7 @@ export default function Home() {
           <code className={styles.code}>pages/index.js</code>
         </p> */}
 
-        <div className={styles.grid}>
+        <div >
           
           <div className={styles.card}>
           {/* <label for="first">Private Key: </label>
