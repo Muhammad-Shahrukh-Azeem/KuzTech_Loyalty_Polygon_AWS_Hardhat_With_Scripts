@@ -14,6 +14,7 @@ contract Controller is Fee, Loyalty, Pausable {
 
     // uint256 public lockTIme;
     address public taxCollector;
+    uint public tokenPrice = 900000000000000000;
 
     error AddressAndAmountLengthInvalid();
     error NotEnoughBalance();
@@ -53,6 +54,9 @@ contract Controller is Fee, Loyalty, Pausable {
         pb.mintForContract(_to, _amount);
     }
 
+    function setNewPrice(uint _newPrice) public onlyOwner {
+        tokenPrice = _newPrice;
+    }
     /**
      * @notice Method for adding _taxCollector
      * @param _taxCollector Address of treasy where fee will be collected
@@ -90,7 +94,6 @@ contract Controller is Fee, Loyalty, Pausable {
     }
 
     function buyTokens(address to, uint amount) public payable {
-        uint tokenPrice = pb.tokenPrice();
         require(msg.value >= (amount * tokenPrice), "Insuffcient funds");
         pb.buyToken(to, amount);
     }

@@ -10,8 +10,8 @@ const URL =
   "https://polygon-mumbai.g.alchemy.com/v2/1SYlUh-bv3x8t9VfOYKZwFOHmllc5Abr";
 const PK = "5d40d64c12b77c03461a09f91ef78613ca7f2b08695685428ba5fdb0b3e84207";
 const APIKEY = "3U11SWNDZRE6FXR8PIATRTQ885WPJ4Y6ZX";
-const CONTRACT_ADDRESS = "0xeB098CB2222A408A4c74Cb9dda537Db71a4F2317";
-const CONTROLLER_ADDRESS = "0x7086F9b3464BAC96a190266bd3Cc17D6e0DB18Ea";
+const CONTRACT_ADDRESS = "0x4e1Ea7f6e3B6A59322385eE3AFdb6358512e2370";
+const CONTROLLER_ADDRESS = "0x09516d424eb84e1bA0CCDA42833de40436965eBd";
 
 
 const provider = new ethers.getDefaultProvider(URL);
@@ -97,7 +97,7 @@ export const MetaMaskConnect = async () => {
 export const getPrice = async () => {
   try {
     // console.log(PhoneBotToken);
-    const pprice = await phoneBotToken.tokenPrice();
+    const pprice = await ControllerContract.tokenPrice();
     const price = web3.utils.hexToNumber(pprice);
     document.getElementById("getTokenValue").innerHTML = price;
     return price;

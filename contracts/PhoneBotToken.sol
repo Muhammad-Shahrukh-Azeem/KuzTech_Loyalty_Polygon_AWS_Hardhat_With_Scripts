@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
@@ -12,9 +12,10 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
     error AlreadyAdded();
     error AlreadyRemoved();
 
+
     bool public allowNativeFunctionality = false;
     bool public allowPurchaseToken = false;
-    uint256 public tokenPrice = 1000;
+
 
     mapping(address => bool) public teamAccessRecord;
     mapping(address => bool) public contractAccess;
@@ -42,6 +43,10 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
     constructor() ERC20("Commerce Meta", "CM") {
         _mint(msg.sender, 100 * 10**decimals());
     }
+
+    // function setTokenValue(address _contractAddressOfToken) public onlyOwner {
+    //     priceFeed = AggregatorV3Interface(_contractAddressOfToken);
+    // }
 
     function enableNativeFunctionality() external onlyOwner {
         allowNativeFunctionality = true;
@@ -85,13 +90,6 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
         _mint(to, amount);
     }
 
-    /**
-     * @notice method for setting token buy price
-     * @param _newPrice new price
-     */
-    function setTokenPrice(uint256 _newPrice) external onlyOwner {
-        tokenPrice = _newPrice;
-    }
 
     /**
      * @notice method for purchasing tokens only ascessable by team members
@@ -204,7 +202,7 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
      */
     function removeContractAddress(address _contract) external onlyOwner {
         if (!contractAccess[_contract]) {
-            revert AlreadyAdded();
+            revert AlreadyRemoved();
         }
         contractAccess[_contract] = false;
     }
@@ -215,7 +213,7 @@ contract PhoneBotToken is ERC20, ERC20Burnable, Pausable, Ownable {
      */
     function addTeamAddress(address _member) external onlyOwner {
         if (teamAccessRecord[_member]) {
-            revert AlreadyRemoved();
+            revert AlreadyAdded();
         }
         teamAccessRecord[_member] = true;
     }

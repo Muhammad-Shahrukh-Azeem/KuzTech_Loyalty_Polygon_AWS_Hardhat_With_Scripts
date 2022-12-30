@@ -1,297 +1,514 @@
 {
-  "address": "0x7086F9b3464BAC96a190266bd3Cc17D6e0DB18Ea",
+  "address": "0x09516d424eb84e1bA0CCDA42833de40436965eBd",
   "abi": [
     {
-      "type": "constructor",
-      "payable": false,
-      "inputs": [{ "type": "address", "name": "_contract" }]
-    },
-    { "type": "error", "name": "AddressAndAmountLengthInvalid", "inputs": [] },
-    { "type": "error", "name": "AlreadyAdded", "inputs": [] },
-    { "type": "error", "name": "CannotBeAddressZero", "inputs": [] },
-    { "type": "error", "name": "CannotSendToAddressZero", "inputs": [] },
-    { "type": "error", "name": "NotEnoughBalance", "inputs": [] },
-    { "type": "error", "name": "ThisAintAllowedYet", "inputs": [] },
-    { "type": "error", "name": "cannotBeContract", "inputs": [] },
-    { "type": "error", "name": "valueCannotBeZero", "inputs": [] },
-    {
-      "type": "event",
-      "anonymous": false,
-      "name": "LoyaltyUpdated",
       "inputs": [
         {
-          "type": "uint256",
+          "internalType": "address",
+          "name": "_contract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AddressAndAmountLengthInvalid",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyAdded",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotBeAddressZero",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "CannotSendToAddressZero",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotEnoughBalance",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ThisAintAllowedYet",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "cannotBeContract",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "valueCannotBeZero",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
           "name": "loyaltyPercentageBefore",
-          "indexed": false
+          "type": "uint256"
         },
         {
-          "type": "uint256",
+          "indexed": false,
+          "internalType": "uint256",
           "name": "loyaltyPercentageAfter",
-          "indexed": false
+          "type": "uint256"
         }
-      ]
+      ],
+      "name": "LoyaltyUpdated",
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
       "name": "OwnershipTransferred",
-      "inputs": [
-        { "type": "address", "name": "previousOwner", "indexed": true },
-        { "type": "address", "name": "newOwner", "indexed": true }
-      ]
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
       "name": "Paused",
-      "inputs": [{ "type": "address", "name": "account", "indexed": false }]
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
       "name": "TokenRewarded",
-      "inputs": [
-        { "type": "address", "name": "to", "indexed": false },
-        { "type": "uint256", "name": "amount", "indexed": false }
-      ]
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
       "name": "TokensBurned",
-      "inputs": [
-        { "type": "uint256", "name": "amount", "indexed": false },
-        { "type": "address", "name": "user", "indexed": false }
-      ]
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
       "name": "Unpaused",
-      "inputs": [{ "type": "address", "name": "account", "indexed": false }]
+      "type": "event"
     },
     {
-      "type": "event",
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "feeBefore",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "feeAfter",
+          "type": "uint256"
+        }
+      ],
       "name": "feeUpdated",
-      "inputs": [
-        { "type": "uint256", "name": "feeBefore", "indexed": false },
-        { "type": "uint256", "name": "feeAfter", "indexed": false }
-      ]
+      "type": "event"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_spender",
+          "type": "address"
+        }
+      ],
       "name": "allowance",
-      "constant": true,
-      "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "_owner" },
-        { "type": "address", "name": "_spender" }
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      "outputs": [{ "type": "uint256" }]
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        }
+      ],
       "name": "balanceOf",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [{ "type": "address", "name": "_user" }],
-      "outputs": [{ "type": "uint256" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_addresses",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "_amounts",
+          "type": "uint256[]"
+        }
+      ],
       "name": "batchMinting",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address[]", "name": "_addresses" },
-        { "type": "uint256[]", "name": "_amounts" }
-      ],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
       "name": "burnOnPurchase",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "_user" },
-        { "type": "uint256", "name": "_amount" }
-      ],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
       "name": "buyTokens",
-      "constant": false,
+      "outputs": [],
       "stateMutability": "payable",
-      "payable": true,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "to" },
-        { "type": "uint256", "name": "amount" }
-      ],
-      "outputs": []
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "getLoyaltyPercentage",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": [{ "type": "uint256" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "getTaxCollectorAddress",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": [{ "type": "address" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "getfee",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": [{ "type": "uint256" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "owner",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": [{ "type": "address" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "paused",
-      "constant": true,
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": [{ "type": "bool" }]
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
       "name": "renounceOwnership",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_fee",
+          "type": "uint256"
+        }
+      ],
       "name": "setFee",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [{ "type": "uint256", "name": "_fee" }],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_loyaltyPercentage",
+          "type": "uint256"
+        }
+      ],
       "name": "setLoyaltyPercentage",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [{ "type": "uint256", "name": "_loyaltyPercentage" }],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_newPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNewPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_taxCollector",
+          "type": "address"
+        }
+      ],
       "name": "setTaxCollector",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [{ "type": "address", "name": "_taxCollector" }],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
       "name": "simpleMint",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "_to" },
-        { "type": "uint256", "name": "_amount" }
-      ],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
-      "name": "taxCollector",
-      "constant": true,
-      "stateMutability": "view",
-      "payable": false,
-      "gas": 29000000,
       "inputs": [],
-      "outputs": [{ "type": "address" }]
+      "name": "taxCollector",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [],
+      "name": "tokenPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
       "name": "transfer",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "to" },
-        { "type": "uint256", "name": "amount" }
-      ],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
       "name": "transferFrom",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [
-        { "type": "address", "name": "from" },
-        { "type": "address", "name": "to" },
-        { "type": "uint256", "name": "amount" }
-      ],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
       "name": "transferOwnership",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
-      "inputs": [{ "type": "address", "name": "newOwner" }],
-      "outputs": []
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      "type": "function",
-      "name": "transferingTokensOutside",
-      "constant": false,
-      "payable": false,
-      "gas": 29000000,
       "inputs": [
-        { "type": "address", "name": "_to" },
-        { "type": "uint256", "name": "_amount" }
+        {
+          "internalType": "address",
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
       ],
-      "outputs": []
+      "name": "transferingTokensOutside",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     }
   ]
 }

@@ -11,10 +11,10 @@ const {
 } = require("../init");
 
 // THIS FUNCTION RETURNS THE BUYING PRICE OF TOKEN IN WEI
-async function getTokenValue() {
-  const tokenValue = await PhoneBotToken.methods.tokenPrice().call();
-  return tokenValue;
-}
+// async function getTokenValue() {
+//   const tokenValue = await PhoneBotToken.methods.tokenPrice().call();
+//   return tokenValue;
+// }
 
 // THE FUNCTION ADDS AN ADDRESS OF THE TEAM WHO CAN CALL THE CONTROLLER CONTRACT (CAN ONLY BE CALLED BY OWNER)
 async function addTeamAddress(callerPrivateKey, newTeamAddress) {

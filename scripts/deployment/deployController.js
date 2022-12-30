@@ -8,26 +8,24 @@ const hre = require("hardhat");
 const fs = require("fs");
 
 async function main() {
-// try {
-  // const Controller = await hre.ethers.getContractFactory("Controller");
-  // const controller = await Controller.deploy('0xeB098CB2222A408A4c74Cb9dda537Db71a4F2317');
-  // await controller.deployed();
+try {
+  const Controller = await hre.ethers.getContractFactory("Controller");
+  const controller = await Controller.deploy('0x4e1Ea7f6e3B6A59322385eE3AFdb6358512e2370');
+  await controller.deployed();
 
 
 
 // //  DEPLOYED TO = 0x7086F9b3464BAC96a190266bd3Cc17D6e0DB18Ea;
-
-
-
+// //  New Address = 0x09516d424eb84e1bA0CCDA42833de40436965eBd;
 
 
 
 
   console.log("Deployed to: ", controller.address);
-//   process.exit(0);
-// } catch (error) {
-//   console.log(error);
-// }
+  process.exit(0);
+} catch (error) {
+  console.log(error);
+}
 
 const data = {
   address: controller.address,
