@@ -450,8 +450,11 @@ export const buyTokens = async (addressTo, amount) => {
   try {
     const addressTo = document.querySelector("#buyTokensAddress").value;
     const amount = document.querySelector("#buyTokensAmount").value;
-    const priceInHex = await phoneBotToken.tokenPrice();
-    const tokenPriceWei = web3.utils.hexToNumber(priceInHex);
+    const priceInHex = await ControllerContract.tokenPrice();
+
+    const tokenPriceWei = priceInHex;
+    console.log("Here")
+
     const cost = tokenPriceWei*amount;
     console.log(cost)
     const buyToken = await controller.methods
