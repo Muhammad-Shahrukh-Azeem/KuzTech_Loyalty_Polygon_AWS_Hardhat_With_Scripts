@@ -1,13 +1,10 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+<h2>This is a loyalty program backend for Phonebot</h2>
+  <h3>All the main code is in fullfunc branch</h3>
+  <ul>
+  <li>The Front-End directory holds a test interface.</li>
+  <li>The API directory holds the API call that will interact the blockchain to fetch all the data.</li>
+  <li>The contract has a main contract and a controller contract which performs interacts with the main. <br>
+  Only the main contract hold the functionality while only the controler can access it.
+  </li>
+  <li>The Scrits directs has specific scripts dedicated to certain tasks.</li>
+</ul>
