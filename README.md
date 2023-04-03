@@ -1,5 +1,6 @@
-<h2>This is a loyalty program backend for Phonebot</h2>
-  <h3>All the main code is in fullfunc branch</h3>
+<h1>This is a loyalty program backend for Phonebot</h1>
+  <h2>All the main code is in fullfunc branch</h2>
+  <h3>The Logic is written in a way that the user's data is stored on a database while the contract only tolds logic and security</h3>
   <ul>
   <li>The Front-End directory holds a test interface.</li>
   <li>The API directory holds the API call that will interact the blockchain to fetch all the data.</li>
